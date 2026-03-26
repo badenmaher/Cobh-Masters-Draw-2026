@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Masters 2026 Sweep — Official Entry Sheet</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+body {
+  font-family: 'Work Sans', sans-serif;
+  background: #f5f0e8;
+  color: #1a1a1a;
+  font-size: 10pt;
+  line-height: 1.4;
+}
+
+/* ── PRINT CONTROLS (screen only) ── */
+.print-controls {
+  position: fixed; top: 0; left: 0; right: 0;
+  background: #1a472a;
+  color: #fff;
+  padding: 12px 20px;
+  display: flex; align-items: center; gap: 12px;
+  z-index: 100;
+  font-size: 13px;
+}
+.print-btn {
+  background: #c9a227; color: #1a1a1a;
+  border: none; padding: 8px 20px;
+  border-radius: 6px; font-weight: 700;
+  cursor: pointer; font-size: 13px;
+}
+.print-instructions { color: #aed6a0; font-size: 12px; }
+@media print { .print-controls { display: none; } }
+
+/* ── PAGE ── */
+.page {
+  width: 297mm; /* A4 landscape width → use as A3 portrait workaround */
+  max-width: 100%;
+  margin: 60px auto 0; /* offset for fixed controls on screen */
+  background: #fff;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.15);
+}
+@media print {
+  .page { margin: 0; box-shadow: none; width: 100%; }
+  body  { background: #fff; }
+}
+
+/* ── HEADER ── */
+.page-header {
+  background: #1a472a;
+  color: #fff;
+  padding: 24px 28px 20px;
+  display: flex; align-items: center; justify-content: space-between;
+  border-bottom: 4px solid #c9a227;
+}
+.header-left { display: flex; align-items: center; gap: 16px; }
+.header-logo-area h1 {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 22pt;
+  color: #e8c457;
+  line-height: 1.1;
+}
+.header-logo-area p { color: #a0c8a8; font-size: 10pt; margin-top: 3px; }
+.header-right { text-align: right; }
+.header-right .entry-fee {
+  font-size: 18pt; font-weight: 700; color: #e8c457;
+}
+.header-right p { color: #a0c8a8; font-size: 9pt; margin-top: 2px; }
+
+/* ── SCORING RULES BOX ── */
+.rules-bar {
+  background: #0d2818;
+  color: #c0e0c4;
+  padding: 10px 28px;
+  font-size: 9pt;
+  display: flex; gap: 32px; flex-wrap: wrap; align-items: center;
+}
+.rules-bar strong { color: #e8c457; }
+
+/* ── TWO COLUMN LAYOUT ── */
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+}
+
+/* ── BRACKET SECTION ── */
+.brackets-area { padding: 16px 14px 16px 28px; border-right: 1px solid #ddd; }
+.brackets-title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 13pt;
+  color: #1a472a;
+  border-bottom: 2px solid #c9a227;
+  padding-bottom: 6px;
+  margin-bottom: 12px;
+}
+.brackets-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.bracket-box { }
+.bracket-header {
+  padding: 5px 10px;
+  font-weight: 700;
+  font-size: 9pt;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 4px;
+  border-radius: 4px;
+}
+.b1 .bracket-header { background: #1a472a; color: #fff; }
+.b2 .bracket-header { background: #2d6a3a; color: #fff; }
+.b3 .bracket-header { background: #c9a227; color: #1a1a1a; }
+.b4 .bracket-header { background: #8a4c1a; color: #fff; }
+
+.player-row {
+  display: flex; justify-content: space-between;
+  padding: 2px 10px;
+  font-size: 8.5pt;
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+}
+.player-row:nth-child(even) { background: rgba(0,0,0,0.02); }
+.player-name { }
+.player-odds { color: #666; font-variant-numeric: tabular-nums; }
+.pick-box {
+  display: inline-block; width: 40px; height: 12px;
+  border-bottom: 1px solid #999;
+  margin-left: 6px; vertical-align: middle;
+}
+
+/* ── ENTRIES AREA ── */
+.entries-area { padding: 16px 28px 16px 14px; }
+.entries-title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 13pt;
+  color: #1a472a;
+  border-bottom: 2px solid #c9a227;
+  padding-bottom: 6px;
+  margin-bottom: 12px;
+}
+.entries-table { width: 100%; font-size: 8.5pt; }
+.entries-table th {
+  background: #1a472a; color: #fff;
+  padding: 4px 6px; text-align: left;
+  font-size: 8pt; font-weight: 600;
+  white-space: nowrap;
+}
+.entries-table td {
+  padding: 3px 6px;
+  border-bottom: 1px solid #e8e8e8;
+  vertical-align: top;
+}
+.entries-table tr:nth-child(even) td { background: #f8f6f0; }
+.entry-player-names { font-size: 7.5pt; color: #555; }
+.entry-name-col { font-weight: 600; min-width: 100px; }
+.b1t { color: #1a472a; }
+.b2t { color: #2d6a3a; }
+.b3t { color: #8a7000; }
+.b4t { color: #6b3210; }
+
+/* ── FOOTER ── */
+.page-footer {
+  background: #1a472a;
+  color: #a0c8a8;
+  padding: 10px 28px;
+  font-size: 8pt;
+  display: flex; justify-content: space-between; align-items: center;
+  border-top: 3px solid #c9a227;
+}
+.page-footer strong { color: #e8c457; }
+
+/* ── PAGE 2: ENTRIES DETAILED ── */
+.page-break { page-break-before: always; margin-top: 0; }
+</style>
+</head>
+<body>
+
+<!-- PRINT CONTROLS -->
+<div class="print-controls">
+  <svg width="28" height="28" viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="22" stroke="#c9a227" stroke-width="2"/><line x1="20" y1="8" x2="20" y2="38" stroke="#c9a227" stroke-width="2.5" stroke-linecap="round"/><polygon points="20,8 34,16 20,24" fill="#c9a227"/></svg>
+  <span><strong>Masters 2026 Sweep — Poster</strong></span>
+  <button class="print-btn" onclick="window.print()">🖨️ Print / Save as PDF</button>
+  <span class="print-instructions">Set paper to A3 (or A4). Tick "Background graphics". Landscape or Portrait both work.</span>
+</div>
+
+<!-- ═══════════════════════════════════════════ -->
+<!--  PAGE 1 — FIELD + ENTRIES                  -->
+<!-- ═══════════════════════════════════════════ -->
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="page-header">
+    <div class="header-left">
+      <svg width="52" height="52" viewBox="0 0 52 52" fill="none" aria-label="Tournament logo">
+        <circle cx="26" cy="26" r="25" stroke="#c9a227" stroke-width="2"/>
+        <line x1="22" y1="8" x2="22" y2="44" stroke="#c9a227" stroke-width="2.5" stroke-linecap="round"/>
+        <polygon points="22,8 40,18 22,28" fill="#c9a227"/>
+        <ellipse cx="26" cy="45" rx="9" ry="2.5" fill="#2d7a3a"/>
+      </svg>
+      <div class="header-logo-area">
+        <h1>Masters 2026 Club Sweep</h1>
+        <p>Augusta National Golf Club · April 10–13, 2026</p>
+      </div>
+    </div>
+    <div class="header-right">
+      <div class="entry-fee">£10 per entry</div>
+      <p>Prize: 50% / 30% / 20%</p>
+      <p>Live leaderboard: <em id="website-url">see email</em></p>
+    </div>
+  </div>
+
+  <!-- RULES BAR -->
+  <div class="rules-bar">
+    <span><strong>How it works:</strong> Pick 2 players from each bracket (8 picks total)</span>
+    <span><strong>Scoring:</strong> Sum of all 8 players' scores to par</span>
+    <span><strong>Missed cut:</strong> +10 penalty added to score</span>
+    <span><strong>Tiebreak:</strong> Lowest individual pick wins</span>
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <div class="two-col">
+
+    <!-- BRACKETS -->
+    <div class="brackets-area">
+      <div class="brackets-title">The Field — Paddy Power Odds</div>
+      <div class="brackets-grid">
+
+        <!-- BRACKET 1 -->
+        <div class="bracket-box b1">
+          <div class="bracket-header">Bracket 1 — Favourites</div>
+          <div class="player-row"><span class="player-name">Scottie Scheffler</span><span class="player-odds">9/2</span></div>
+          <div class="player-row"><span class="player-name">Rory McIlroy</span><span class="player-odds">8/1</span></div>
+          <div class="player-row"><span class="player-name">Bryson DeChambeau</span><span class="player-odds">12/1</span></div>
+          <div class="player-row"><span class="player-name">Collin Morikawa</span><span class="player-odds">14/1</span></div>
+          <div class="player-row"><span class="player-name">Ludvig Aberg</span><span class="player-odds">14/1</span></div>
+          <div class="player-row"><span class="player-name">Jon Rahm</span><span class="player-odds">16/1</span></div>
+          <div class="player-row"><span class="player-name">Xander Schauffele</span><span class="player-odds">16/1</span></div>
+          <div class="player-row"><span class="player-name">Tommy Fleetwood</span><span class="player-odds">20/1</span></div>
+          <div class="player-row"><span class="player-name">Patrick Cantlay</span><span class="player-odds">20/1</span></div>
+          <div class="player-row"><span class="player-name">Viktor Hovland</span><span class="player-odds">20/1</span></div>
+          <div class="player-row"><span class="player-name">Shane Lowry</span><span class="player-odds">22/1</span></div>
+          <div class="player-row"><span class="player-name">Min Woo Lee</span><span class="player-odds">25/1</span></div>
+          <div class="player-row"><span class="player-name">Justin Thomas</span><span class="player-odds">25/1</span></div>
+          <div class="player-row"><span class="player-name">Tony Finau</span><span class="player-odds">25/1</span></div>
+          <div class="player-row"><span class="player-name">Russell Henley</span><span class="player-odds">25/1</span></div>
+          <div class="player-row"><span class="player-name">Hideki Matsuyama</span><span class="player-odds">25/1</span></div>
+          <div class="player-row"><span class="player-name">Joaquin Niemann</span><span class="player-odds">25/1</span></div>
+          <div class="player-row"><span class="player-name">Will Zalatoris</span><span class="player-odds">25/1</span></div>
+          <div class="player-row"><span class="player-name">Corey Conners</span><span class="player-odds">25/1</span></div>
+          <div class="player-row"><span class="player-name">Sepp Straka</span><span class="player-odds">25/1</span></div>
+        </div>
+
+        <!-- BRACKET 2 -->
+        <div class="bracket-box b2">
+          <div class="bracket-header">Bracket 2 — Contenders</div>
+          <div class="player-row"><span class="player-name">Jordan Spieth</span><span class="player-odds">28/1</span></div>
+          <div class="player-row"><span class="player-name">Brooks Koepka</span><span class="player-odds">28/1</span></div>
+          <div class="player-row"><span class="player-name">Sam Burns</span><span class="player-odds">33/1</span></div>
+          <div class="player-row"><span class="player-name">Sungjae Im</span><span class="player-odds">33/1</span></div>
+          <div class="player-row"><span class="player-name">Tom Kim</span><span class="player-odds">33/1</span></div>
+          <div class="player-row"><span class="player-name">Keegan Bradley</span><span class="player-odds">33/1</span></div>
+          <div class="player-row"><span class="player-name">Adam Scott</span><span class="player-odds">33/1</span></div>
+          <div class="player-row"><span class="player-name">Si Woo Kim</span><span class="player-odds">33/1</span></div>
+          <div class="player-row"><span class="player-name">Matt Fitzpatrick</span><span class="player-odds">40/1</span></div>
+          <div class="player-row"><span class="player-name">Harris English</span><span class="player-odds">40/1</span></div>
+          <div class="player-row"><span class="player-name">Cameron Young</span><span class="player-odds">40/1</span></div>
+          <div class="player-row"><span class="player-name">Sahith Theegala</span><span class="player-odds">40/1</span></div>
+          <div class="player-row"><span class="player-name">Max Greyserman</span><span class="player-odds">40/1</span></div>
+          <div class="player-row"><span class="player-name">Rasmus Hojgaard</span><span class="player-odds">40/1</span></div>
+          <div class="player-row"><span class="player-name">Patrick Reed</span><span class="player-odds">40/1</span></div>
+          <div class="player-row"><span class="player-name">Tyrrell Hatton</span><span class="player-odds">40/1</span></div>
+          <div class="player-row"><span class="player-name">Chris Kirk</span><span class="player-odds">50/1</span></div>
+          <div class="player-row"><span class="player-name">Akshay Bhatia</span><span class="player-odds">50/1</span></div>
+          <div class="player-row"><span class="player-name">Taylor Moore</span><span class="player-odds">50/1</span></div>
+          <div class="player-row"><span class="player-name">Seamus Power</span><span class="player-odds">50/1</span></div>
+        </div>
+
+        <!-- BRACKET 3 -->
+        <div class="bracket-box b3">
+          <div class="bracket-header">Bracket 3 — Outsiders</div>
+          <div class="player-row"><span class="player-name">Rickie Fowler</span><span class="player-odds">55/1</span></div>
+          <div class="player-row"><span class="player-name">Adam Hadwin</span><span class="player-odds">55/1</span></div>
+          <div class="player-row"><span class="player-name">Kevin Yu</span><span class="player-odds">55/1</span></div>
+          <div class="player-row"><span class="player-name">Byeong Hun An</span><span class="player-odds">55/1</span></div>
+          <div class="player-row"><span class="player-name">Brendon Todd</span><span class="player-odds">60/1</span></div>
+          <div class="player-row"><span class="player-name">Luke List</span><span class="player-odds">60/1</span></div>
+          <div class="player-row"><span class="player-name">Jason Day</span><span class="player-odds">66/1</span></div>
+          <div class="player-row"><span class="player-name">Dustin Johnson</span><span class="player-odds">66/1</span></div>
+          <div class="player-row"><span class="player-name">Brian Harman</span><span class="player-odds">66/1</span></div>
+          <div class="player-row"><span class="player-name">Denny McCarthy</span><span class="player-odds">66/1</span></div>
+          <div class="player-row"><span class="player-name">Cameron Davis</span><span class="player-odds">66/1</span></div>
+          <div class="player-row"><span class="player-name">Taylor Pendrith</span><span class="player-odds">66/1</span></div>
+          <div class="player-row"><span class="player-name">Eric Cole</span><span class="player-odds">80/1</span></div>
+          <div class="player-row"><span class="player-name">Mackenzie Hughes</span><span class="player-odds">80/1</span></div>
+          <div class="player-row"><span class="player-name">Nick Dunlap</span><span class="player-odds">80/1</span></div>
+          <div class="player-row"><span class="player-name">Kevin Streelman</span><span class="player-odds">100/1</span></div>
+          <div class="player-row"><span class="player-name">Aaron Rai</span><span class="player-odds">100/1</span></div>
+          <div class="player-row"><span class="player-name">JT Poston</span><span class="player-odds">100/1</span></div>
+          <div class="player-row"><span class="player-name">Matthieu Pavon</span><span class="player-odds">100/1</span></div>
+          <div class="player-row"><span class="player-name">Davis Riley</span><span class="player-odds">100/1</span></div>
+        </div>
+
+        <!-- BRACKET 4 -->
+        <div class="bracket-box b4">
+          <div class="bracket-header">Bracket 4 — Big Prices / Past Champions</div>
+          <div class="player-row"><span class="player-name">Phil Mickelson</span><span class="player-odds">125/1</span></div>
+          <div class="player-row"><span class="player-name">Tiger Woods</span><span class="player-odds">150/1</span></div>
+          <div class="player-row"><span class="player-name">Fred Couples</span><span class="player-odds">150/1</span></div>
+          <div class="player-row"><span class="player-name">Bubba Watson</span><span class="player-odds">200/1</span></div>
+          <div class="player-row"><span class="player-name">Larry Mize</span><span class="player-odds">500/1</span></div>
+          <div class="player-row"><span class="player-name">Jose Maria Olazabal</span><span class="player-odds">500/1</span></div>
+          <div class="player-row"><span class="player-name">Sandy Lyle</span><span class="player-odds">500/1</span></div>
+          <div class="player-row"><span class="player-name">Bernhard Langer</span><span class="player-odds">500/1</span></div>
+          <div class="player-row"><span class="player-name">Vijay Singh</span><span class="player-odds">500/1</span></div>
+          <div class="player-row"><span class="player-name">Mark O'Meara</span><span class="player-odds">500/1</span></div>
+          <div class="player-row"><span class="player-name">Ian Woosnam</span><span class="player-odds">500/1</span></div>
+          <div class="player-row"><span class="player-name">Nick Faldo</span><span class="player-odds">500/1</span></div>
+          <div class="player-row"><span class="player-name">Ben Crenshaw</span><span class="player-odds">500/1</span></div>
+          <div class="player-row"><span class="player-name">Tom Watson</span><span class="player-odds">500/1</span></div>
+          <div class="player-row"><span class="player-name">Fuzzy Zoeller</span><span class="player-odds">500/1</span></div>
+          <div class="player-row"><span class="player-name">Craig Stadler</span><span class="player-odds">500/1</span></div>
+          <div class="player-row"><span class="player-name">Charles Coody</span><span class="player-odds">500/1</span></div>
+          <div class="player-row"><span class="player-name">Tommy Aaron</span><span class="player-odds">500/1</span></div>
+          <div class="player-row"><span class="player-name">Gay Brewer</span><span class="player-odds">500/1</span></div>
+          <div class="player-row"><span class="player-name">Bob Goalby</span><span class="player-odds">500/1</span></div>
+        </div>
+
+      </div><!-- /brackets-grid -->
+    </div><!-- /brackets-area -->
+
+    <!-- ENTRIES -->
+    <div class="entries-area">
+      <div class="entries-title">All Entries — Participants &amp; Picks</div>
+      <table class="entries-table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>B1 Picks</th>
+            <th>B2 Picks</th>
+            <th>B3 Picks</th>
+            <th>B4 Picks</th>
+          </tr>
+        </thead>
+        <tbody id="entries-tbody">
+          <!-- 
+            TO FILL THIS TABLE:
+            After running the Google Sheet, copy your Participants data here.
+            OR: Print from the website's "All Entries" tab which auto-fills.
+            
+            Below is a sample / placeholder format:
+          -->
+          <tr><td class="entry-name-col" style="color:#999;font-style:italic" colspan="5">← Entries appear here after adding participants in the Google Sheet. Or print from the website's All Entries tab.</td></tr>
+          <tr style="height:24px"><td colspan="5"></td></tr>
+          <tr style="height:24px"><td colspan="5"></td></tr>
+          <tr style="height:24px"><td colspan="5"></td></tr>
+          <tr style="height:24px"><td colspan="5"></td></tr>
+          <tr style="height:24px"><td colspan="5"></td></tr>
+          <tr style="height:24px"><td colspan="5"></td></tr>
+          <tr style="height:24px"><td colspan="5"></td></tr>
+          <tr style="height:24px"><td colspan="5"></td></tr>
+          <tr style="height:24px"><td colspan="5"></td></tr>
+          <tr style="height:24px"><td colspan="5"></td></tr>
+          <tr style="height:24px"><td colspan="5"></td></tr>
+          <tr style="height:24px"><td colspan="5"></td></tr>
+          <tr style="height:24px"><td colspan="5"></td></tr>
+          <tr style="height:24px"><td colspan="5"></td></tr>
+          <tr style="height:24px"><td colspan="5"></td></tr>
+          <tr style="height:24px"><td colspan="5"></td></tr>
+          <tr style="height:24px"><td colspan="5"></td></tr>
+          <tr style="height:24px"><td colspan="5"></td></tr>
+          <tr style="height:24px"><td colspan="5"></td></tr>
+          <tr style="height:24px"><td colspan="5"></td></tr>
+          <tr style="height:24px"><td colspan="5"></td></tr>
+          <tr style="height:24px"><td colspan="5"></td></tr>
+          <tr style="height:24px"><td colspan="5"></td></tr>
+          <tr style="height:24px"><td colspan="5"></td></tr>
+          <tr style="height:24px"><td colspan="5"></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div><!-- /two-col -->
+
+  <!-- FOOTER -->
+  <div class="page-footer">
+    <span><strong>Masters 2026 Club Sweep</strong> · Augusta National · April 10–13, 2026</span>
+    <span>Best of luck everyone! 🏆</span>
+    <span>Live leaderboard: <strong id="footer-url">see email</strong></span>
+  </div>
+
+</div><!-- /page -->
+
+<script>
+// Auto-populate entries from URL param if passed: ?entries=base64encodedJSON
+// Otherwise shows the placeholder. You can also hand-fill entries below.
+
+// Example manual entries — replace these with your actual participants:
+const MANUAL_ENTRIES = [
+  // { name: 'James Morrison',  b1: ['Scheffler', 'McIlroy'],     b2: ['Morikawa', 'Im'],        b3: ['Fowler', 'Day'],     b4: ['Mickelson', 'Tiger'] },
+  // { name: 'Sarah Campbell',  b1: ['McIlroy', 'Aberg'],         b2: ['Koepka', 'Burns'],       b3: ['Lowry', 'Hatton'],   b4: ['D Johnson', 'Bubba'] },
+  // Add more entries here...
+];
+
+if (MANUAL_ENTRIES.length > 0) {
+  const tbody = document.getElementById('entries-tbody');
+  tbody.innerHTML = MANUAL_ENTRIES.map((e, i) => `
+    <tr>
+      <td class="entry-name-col">${e.name}</td>
+      <td class="b1t">${(e.b1 || []).join(' / ')}</td>
+      <td class="b2t">${(e.b2 || []).join(' / ')}</td>
+      <td class="b3t">${(e.b3 || []).join(' / ')}</td>
+      <td class="b4t">${(e.b4 || []).join(' / ')}</td>
+    </tr>
+  `).join('');
+}
+</script>
+</body>
+</html>
