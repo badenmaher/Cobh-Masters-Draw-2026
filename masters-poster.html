@@ -1,333 +1,280 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Masters 2026 — Cobh Golf Club Sweep Poster</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Work+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
-<style>
-body{margin:0;padding:20px;background:#1a1a1a;font-family:'Work Sans','Helvetica Neue',sans-serif;color:#fff}
-.screen-controls{max-width:900px;margin:0 auto 20px;display:flex;gap:12px;align-items:center;flex-wrap:wrap}
-.print-btn{background:#d4af37;color:#0a3320;border:none;padding:10px 28px;border-radius:999px;font-weight:700;font-size:1rem;cursor:pointer;transition:background .18s}
-.print-btn:hover{background:#f0d060}
-.back-link{color:#8ea89a;font-size:.875rem;text-decoration:none;margin-left:auto}
-.back-link:hover{color:#d4af37}
-.refresh-info{font-size:.75rem;color:#5a7a6a;margin-left:8px}
-.poster-wrapper{max-width:900px;margin:0 auto;box-shadow:0 8px 40px rgba(0,0,0,.7)}
-.poster-page{width:297mm;min-height:420mm;background:#fff;color:#111;overflow:hidden;page-break-after:always;position:relative;}
-/* PAGE 1 */
-.p1-bg{background:linear-gradient(180deg,#0a3320 0%,#0f5132 40%,#1a6b45 70%,#0f5132 100%);min-height:420mm;display:flex;flex-direction:column;color:#fff;}
-.p1-header{padding:18mm 18mm 10mm;text-align:center;border-bottom:2px solid rgba(212,175,55,.4);}
-.p1-badge{display:inline-block;background:rgba(212,175,55,.15);border:1px solid rgba(212,175,55,.4);color:#f0d060;font-size:9pt;font-weight:700;letter-spacing:.2em;text-transform:uppercase;padding:5px 20px;border-radius:999px;margin-bottom:10px;}
-.p1-main-title{font-family:'Playfair Display',Georgia,serif;font-size:52pt;font-weight:700;color:#f0d060;line-height:1;margin-bottom:4px;text-shadow:0 2px 12px rgba(0,0,0,.5);}
-.p1-year{font-family:'Playfair Display',Georgia,serif;font-size:28pt;font-weight:600;color:#fff;letter-spacing:.1em;margin-bottom:8px;}
-.p1-sub{font-size:12pt;color:rgba(255,255,255,.7);margin-bottom:4px;}
-.p1-dates{font-size:10pt;color:#d4af37;letter-spacing:.08em;font-weight:600;}
-.p1-body{padding:10mm 18mm;flex:1;display:grid;grid-template-columns:1fr 1fr;gap:10mm;}
-.p1-section-title{font-family:'Playfair Display',Georgia,serif;font-size:14pt;font-weight:700;color:#f0d060;border-bottom:1.5px solid rgba(212,175,55,.4);padding-bottom:4px;margin-bottom:10px;}
-.p1-rules ol{padding-left:18px;font-size:9.5pt;color:rgba(255,255,255,.85);line-height:1.7;}
-.p1-rules li{margin-bottom:4px}
-.p1-rules li strong{color:#f0d060}
-.prizes-table{width:100%;border-collapse:collapse;font-size:9.5pt}
-.prizes-table tr{border-bottom:1px solid rgba(212,175,55,.2)}
-.prizes-table td{padding:7px 6px;color:rgba(255,255,255,.85);vertical-align:top}
-.prizes-table td:first-child{font-weight:700;color:#f0d060;width:30px}
-.prizes-table td:last-child{font-size:8.5pt;color:rgba(255,255,255,.55)}
-.brackets-mini{font-size:8.5pt;color:rgba(255,255,255,.75)}
-.brackets-mini h4{font-size:9pt;color:#f0d060;margin:6px 0 3px;font-weight:600}
-.brackets-mini p{margin:2px 0;line-height:1.5}
-.p1-entry{grid-column:1/-1;background:rgba(212,175,55,.1);border:1px solid rgba(212,175,55,.3);border-radius:8px;padding:8mm 10mm;text-align:center;}
-.p1-entry-cost{font-family:'Playfair Display',Georgia,serif;font-size:22pt;color:#f0d060;font-weight:700}
-.p1-entry-detail{font-size:9.5pt;color:rgba(255,255,255,.7);margin-top:4px}
-/* PAGE 2 */
-.p2-bg{background:#fff;min-height:420mm;display:flex;flex-direction:column;}
-.p2-header{background:linear-gradient(135deg,#0a3320 0%,#0f5132 60%,#1a6b45 100%);padding:8mm 14mm 6mm;display:flex;justify-content:space-between;align-items:center;border-bottom:2.5px solid #d4af37;}
-.p2-header-title{font-family:'Playfair Display',Georgia,serif;font-size:16pt;color:#f0d060;font-weight:700}
-.p2-header-sub{font-size:8pt;color:rgba(255,255,255,.6);margin-top:2px}
-.p2-live-badge{background:rgba(212,175,55,.2);border:1px solid #d4af37;color:#f0d060;font-size:7pt;padding:3px 10px;border-radius:999px;font-weight:700;letter-spacing:.1em;text-transform:uppercase}
-.p2-body{flex:1;padding:6mm 10mm;display:flex;flex-direction:column;gap:5mm;}
-.brackets-row{display:grid;grid-template-columns:repeat(4,1fr);gap:4mm;}
-.bracket-col{border:1px solid #c8e6d4;border-radius:6px;overflow:hidden;}
-.bracket-col-head{background:#0f5132;color:#f0d060;font-size:7.5pt;font-weight:700;text-transform:uppercase;letter-spacing:.07em;padding:4px 8px;text-align:center;}
-.bracket-col-sub{background:#1a6b45;color:rgba(255,255,255,.7);font-size:6.5pt;text-align:center;padding:2px 4px;}
-.bracket-golfer{font-size:7pt;padding:2.5px 7px;border-bottom:1px solid #e8f5ee;color:#1a2e22;line-height:1.4;display:flex;align-items:center;gap:4px;}
-.bracket-golfer:last-child{border-bottom:none}
-.bracket-golfer:nth-child(odd){background:#f8fdf9}
-.g-num{color:#8aa898;font-size:6.5pt;min-width:14px}
-.participants-section-title{font-family:'Playfair Display',Georgia,serif;font-size:11pt;color:#0f5132;font-weight:700;border-bottom:2px solid #d4af37;padding-bottom:3px;margin-bottom:4mm;display:flex;justify-content:space-between;align-items:center;}
-.participants-section-title small{font-size:7.5pt;color:#5a7a6a;font-family:'Work Sans',sans-serif;font-weight:400}
-.participants-grid-print{display:grid;grid-template-columns:repeat(3,1fr);gap:3mm;}
-.pp-card{border:1px solid #c8e6d4;border-radius:5px;padding:4px 7px;background:#f8fdf9;}
-.pp-name{font-weight:700;font-size:7.5pt;color:#0a3320;margin-bottom:2px}
-.pp-picks{font-size:6.5pt;color:#3a5a48;line-height:1.6}
-.pp-bracket{display:inline-block;margin-right:4px;padding:1px 4px;border-radius:3px;font-size:6pt;font-weight:600}
-.pp-b1{background:#dbeafe;color:#1d4ed8}
-.pp-b2{background:#fef3c7;color:#92400e}
-.pp-b3{background:#dcfce7;color:#166534}
-.pp-b4{background:#ffedd5;color:#9a3412}
-.pp-empty{color:#8aa898;font-style:italic}
-.p2-footer{background:#0a3320;padding:4mm 10mm;display:flex;justify-content:space-between;align-items:center;}
-.p2-footer-left{font-size:7.5pt;color:rgba(255,255,255,.6)}
-.p2-footer-right{font-size:7pt;color:rgba(255,255,255,.4)}
-@media print{
-  body{margin:0;padding:0;background:#fff}
-  .screen-controls{display:none}
-  .poster-wrapper{box-shadow:none;max-width:none}
-  .poster-page{width:297mm;min-height:420mm;page-break-after:always}
-}
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Masters 2026 Poster</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Inter:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    @page { size: A3 portrait; margin: 14mm; }
+
+    body{
+      margin:0;
+      font-family:'Inter',sans-serif;
+      background:#0a2d1c;
+      color:#f7efd6;
+    }
+
+    .page{
+      width:297mm;
+      min-height:420mm;
+      margin:0 auto;
+      background:
+        radial-gradient(circle at top, rgba(67,145,92,.2), transparent 30%),
+        linear-gradient(180deg,#0b341f 0%, #072416 100%);
+      box-sizing:border-box;
+      padding:18mm;
+    }
+
+    .hero{
+      border:1px solid rgba(220,180,74,.25);
+      border-radius:24px;
+      padding:18mm 14mm;
+      text-align:center;
+      background:rgba(255,255,255,.02);
+      margin-bottom:14mm;
+    }
+
+    .kicker{
+      text-transform:uppercase;
+      letter-spacing:.18em;
+      color:#d8c89e;
+      font-size:11pt;
+      margin-bottom:6mm;
+    }
+
+    h1{
+      font-family:'Cormorant Garamond',serif;
+      font-size:36pt;
+      line-height:1;
+      margin:0 0 5mm;
+      color:#f2d57b;
+    }
+
+    .sub{
+      font-size:14pt;
+      color:#efe0b2;
+      margin-bottom:4mm;
+    }
+
+    .call{
+      font-size:17pt;
+      font-weight:800;
+      color:#fff;
+      margin-top:5mm;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:10mm;
+    }
+
+    .panel{
+      border:1px solid rgba(220,180,74,.2);
+      border-radius:20px;
+      padding:8mm;
+      background:rgba(255,255,255,.03);
+    }
+
+    .panel h2{
+      margin:0 0 5mm;
+      font-size:18pt;
+      color:#f2d57b;
+      font-family:'Cormorant Garamond',serif;
+    }
+
+    .panel p, .panel li{
+      color:#f0e4be;
+      font-size:11.5pt;
+      line-height:1.45;
+    }
+
+    ul{
+      margin:0;
+      padding-left:18px;
+    }
+
+    .footer{
+      margin-top:12mm;
+      text-align:center;
+      color:#cdbd92;
+      font-size:11pt;
+      border-top:1px solid rgba(220,180,74,.16);
+      padding-top:6mm;
+    }
+
+    .page-break{
+      break-before:page;
+      page-break-before:always;
+    }
+
+    .entries-title{
+      text-align:center;
+      font-family:'Cormorant Garamond',serif;
+      font-size:28pt;
+      color:#f2d57b;
+      margin:0 0 4mm;
+    }
+
+    .entries-sub{
+      text-align:center;
+      color:#d8c89e;
+      margin:0 0 10mm;
+      font-size:12pt;
+    }
+
+    .entries-grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:8mm;
+    }
+
+    .entry-card{
+      border:1px solid rgba(220,180,74,.18);
+      border-radius:16px;
+      padding:6mm;
+      background:rgba(255,255,255,.03);
+      break-inside:avoid;
+    }
+
+    .entry-name{
+      font-weight:800;
+      color:#f2d57b;
+      margin-bottom:4mm;
+      font-size:13pt;
+    }
+
+    .bracket{
+      margin-bottom:3mm;
+      background:rgba(255,255,255,.03);
+      border-radius:10px;
+      padding:3mm;
+    }
+
+    .bracket-label{
+      font-size:9pt;
+      text-transform:uppercase;
+      letter-spacing:.08em;
+      color:#b9c3ae;
+      margin-bottom:2mm;
+    }
+
+    .pick{
+      display:inline-block;
+      padding:1.5mm 2.4mm;
+      border-radius:999px;
+      margin:1mm 1mm 0 0;
+      font-size:9.5pt;
+      font-weight:700;
+      color:#fff;
+    }
+
+    .b1{background:#1e6c42}
+    .b2{background:#2d7e4b}
+    .b3{background:#8b6a2c}
+    .b4{background:#6d4d22}
+  </style>
 </head>
 <body>
+  <div class="page">
+    <section class="hero">
+      <div class="kicker">Golf Sweep 2026</div>
+      <h1>Masters 2026 Sweep</h1>
+      <div class="sub">Augusta National · April 09–12</div>
+      <div class="sub">8 picks · 4 brackets · Lowest combined score wins</div>
+      <div class="call">Call 021 4812399 to enter</div>
+    </section>
 
-<div class="screen-controls">
-  <button class="print-btn" onclick="window.print()">🖨️ Print / Save PDF (A3)</button>
-  <a href="index.html" class="back-link">← Back to Leaderboard</a>
-  <span class="refresh-info" id="refresh-info">Participants load automatically</span>
-</div>
+    <div class="grid">
+      <section class="panel">
+        <h2>How it works</h2>
+        <ul>
+          <li>Pick 2 golfers from each bracket</li>
+          <li>8 golfers total per entry</li>
+          <li>Combined tournament score decides the winner</li>
+          <li>Missed cut / WD penalties apply in the scoring sheet</li>
+        </ul>
+      </section>
 
-<div class="poster-wrapper">
+      <section class="panel">
+        <h2>What you need</h2>
+        <ul>
+          <li>Your full name</li>
+          <li>Your 8 golfer selections</li>
+          <li>Your tie-breaker if used</li>
+          <li>Entry confirmed before tee-off</li>
+        </ul>
+      </section>
 
-<!-- PAGE 1 -->
-<div class="poster-page">
-<div class="p1-bg">
-  <div class="p1-header">
-    <div class="p1-badge">⛳ Cobh Golf Club Sweep 2026</div>
-    <div class="p1-main-title">The Masters</div>
-    <div class="p1-year">Augusta National · 2026</div>
-    <div class="p1-sub">Cobh Golf Club Sweepstake</div>
-    <div class="p1-dates">Thursday 9 April — Sunday 12 April 2026</div>
-  </div>
-  <div class="p1-body">
-    <div>
-      <div class="p1-section-title">⛳ How It Works</div>
-      <div class="p1-rules">
-        <ol>
-          <li>Each entry costs <strong>€10</strong></li>
-          <li>100 Masters field players are split into <strong>4 brackets</strong> (25 players each) by world ranking</li>
-          <li>Each entrant picks <strong>2 players from each bracket</strong> — 8 players total</li>
-          <li>Your score = the <strong>combined score vs par</strong> of all 8 picks over 4 rounds</li>
-          <li>Only scores from rounds your pick <strong>makes the cut</strong> count</li>
-          <li>Leaderboard updates <strong>live online</strong> every 3 minutes</li>
-          <li>Lowest combined score <strong>wins</strong>! (Under par = negative = good)</li>
-        </ol>
-      </div>
+      <section class="panel">
+        <h2>Live updates</h2>
+        <p>The live Masters page tracks leaderboard movement, daily highlights, all participant entries, and final results once the tournament ends.</p>
+      </section>
+
+      <section class="panel">
+        <h2>Final prizes</h2>
+        <p>When the tournament is complete, the main page switches to final results showing the top 3 places and the last-place wooden spoon.</p>
+      </section>
     </div>
-    <div>
-      <div class="p1-section-title">🏆 Prizes</div>
-      <table class="prizes-table">
-        <tr><td>🥇</td><td><strong>1st Place</strong><br>€200 Conor Coyne Golf Voucher</td><td>Use it before the course floods again</td></tr>
-        <tr><td>🥈</td><td><strong>2nd Place</strong><br>€100 Conor Coyne Golf Voucher</td><td>Second is first loser, but still</td></tr>
-        <tr><td>🥉</td><td><strong>3rd Place</strong><br>€50 Conor Coyne Golf Voucher</td><td>Buy yourself a sleeve of balls</td></tr>
-      </table>
-    </div>
-    <div>
-      <div class="p1-section-title">📋 The Brackets</div>
-      <div class="brackets-mini">
-        <h4>Bracket 1 — Top 25</h4>
-        <p>Scheffler, McIlroy, DeChambeau, Rahm, Schauffele, Åberg, Fleetwood, Fitzpatrick, C.Young, Morikawa, Reed, Rose, Koepka, Matsuyama, Spieth, MacIntyre, Hovland, Thomas, Min Woo Lee, Lowry, Gotterup, Henley, Bhatia, Hatton, Niemann</p>
-        <h4>Bracket 2 — 26–50</h4>
-        <p>Cantlay, Si Woo Kim, Straka, S.Burns, Jason Day, Conners, S.Im, A.Scott, Penge, Spaun, Bridgeman, C.Smith, N.Hojgaard, Zalatoris, Finau, Theegala, Homa, McNealy, H.English, Griffin, Jarvis, Berger, Detry, Harman, Aaron Rai</p>
-        <h4>Bracket 3 — 51–75</h4>
-        <p>D.Johnson, Tom Kim, Fox, Noren, A.Kim, Gerard, Horschel, W.Clark, Pendrith, R.Hojgaard, K.Bradley, Garcia, Greyserman, Neergaard-P., N.Taylor, D.Thompson, B.H.An, Kitayama, Schaper, McKibbin, H.Li, McCarty, Potgieter, Coody, C.Ortiz</p>
-        <h4>Bracket 4 — 76–100</h4>
-        <p>H.Hall, Mickelson, D.Riley, Novak, M.Kim, S.Stevens, Keefer, D.McCarthy, Willett, Schwartzel, B.Watson, M.Brennan, Valimaki, Reitan, Kataoka, Z.Johnson, B.Campbell, Cabrera, M.Weir, Couples, Olazabal, V.Singh, M.Howell, Laopakdee, Pulcini</p>
-      </div>
-    </div>
-    <div>
-      <div class="p1-section-title">💶 Entry &amp; Live Scoring</div>
-      <div class="p1-entry">
-        <div class="p1-entry-cost">€10 per entry</div>
-        <div class="p1-entry-detail">Pay on entry · Multiple entries welcome<br>Live leaderboard updates every 3 minutes during the tournament</div>
-        <div style="margin-top:8px;font-size:8.5pt;color:#d4af37;letter-spacing:.04em">🌐 badenmaher.github.io/Cobh-Masters-Draw-2026</div>
-      </div>
+
+    <div class="footer">
+      Masters 2026 Sweep · Live sheet powered · Poster page 1
     </div>
   </div>
-</div>
-</div>
 
-<!-- PAGE 2 -->
-<div class="poster-page">
-<div class="p2-bg">
-  <div class="p2-header">
-    <div>
-      <div class="p2-header-title">Masters 2026 — Field &amp; Participants</div>
-      <div class="p2-header-sub">Cobh Golf Club Sweep · Augusta National · Apr 9–12, 2026</div>
-    </div>
-    <div class="p2-live-badge">⛳ LIVE at badenmaher.github.io/Cobh-Masters-Draw-2026</div>
+  <div class="page page-break">
+    <h2 class="entries-title">Participant Brackets</h2>
+    <p class="entries-sub">Full participant picks for print / A3 display</p>
+    <div id="entries-grid" class="entries-grid"></div>
   </div>
-  <div class="p2-body">
-    <div>
-      <div style="font-family:'Playfair Display',Georgia,serif;font-size:11pt;color:#0f5132;font-weight:700;border-bottom:2px solid #d4af37;padding-bottom:3px;margin-bottom:4mm">Full Tournament Field — 100 Players</div>
-      <div class="brackets-row">
-        <div class="bracket-col">
-          <div class="bracket-col-head">Bracket 1</div>
-          <div class="bracket-col-sub">Top 25 (Favourites)</div>
-          <div class="bracket-golfer"><span class="g-num">1</span>Scottie Scheffler</div>
-          <div class="bracket-golfer"><span class="g-num">2</span>Rory McIlroy</div>
-          <div class="bracket-golfer"><span class="g-num">3</span>Bryson DeChambeau</div>
-          <div class="bracket-golfer"><span class="g-num">4</span>Jon Rahm</div>
-          <div class="bracket-golfer"><span class="g-num">5</span>Xander Schauffele</div>
-          <div class="bracket-golfer"><span class="g-num">6</span>Ludvig Åberg</div>
-          <div class="bracket-golfer"><span class="g-num">7</span>Tommy Fleetwood</div>
-          <div class="bracket-golfer"><span class="g-num">8</span>Matt Fitzpatrick</div>
-          <div class="bracket-golfer"><span class="g-num">9</span>Cameron Young</div>
-          <div class="bracket-golfer"><span class="g-num">10</span>Collin Morikawa</div>
-          <div class="bracket-golfer"><span class="g-num">11</span>Patrick Reed</div>
-          <div class="bracket-golfer"><span class="g-num">12</span>Justin Rose</div>
-          <div class="bracket-golfer"><span class="g-num">13</span>Brooks Koepka</div>
-          <div class="bracket-golfer"><span class="g-num">14</span>Hideki Matsuyama</div>
-          <div class="bracket-golfer"><span class="g-num">15</span>Jordan Spieth</div>
-          <div class="bracket-golfer"><span class="g-num">16</span>Robert MacIntyre</div>
-          <div class="bracket-golfer"><span class="g-num">17</span>Viktor Hovland</div>
-          <div class="bracket-golfer"><span class="g-num">18</span>Justin Thomas</div>
-          <div class="bracket-golfer"><span class="g-num">19</span>Min Woo Lee</div>
-          <div class="bracket-golfer"><span class="g-num">20</span>Shane Lowry</div>
-          <div class="bracket-golfer"><span class="g-num">21</span>Chris Gotterup</div>
-          <div class="bracket-golfer"><span class="g-num">22</span>Russell Henley</div>
-          <div class="bracket-golfer"><span class="g-num">23</span>Akshay Bhatia</div>
-          <div class="bracket-golfer"><span class="g-num">24</span>Tyrrell Hatton</div>
-          <div class="bracket-golfer"><span class="g-num">25</span>Joaquin Niemann</div>
-        </div>
-        <div class="bracket-col">
-          <div class="bracket-col-head">Bracket 2</div>
-          <div class="bracket-col-sub">Ranks 26–50</div>
-          <div class="bracket-golfer"><span class="g-num">26</span>Patrick Cantlay</div>
-          <div class="bracket-golfer"><span class="g-num">27</span>Si Woo Kim</div>
-          <div class="bracket-golfer"><span class="g-num">28</span>Sepp Straka</div>
-          <div class="bracket-golfer"><span class="g-num">29</span>Sam Burns</div>
-          <div class="bracket-golfer"><span class="g-num">30</span>Jason Day</div>
-          <div class="bracket-golfer"><span class="g-num">31</span>Corey Conners</div>
-          <div class="bracket-golfer"><span class="g-num">32</span>Sungjae Im</div>
-          <div class="bracket-golfer"><span class="g-num">33</span>Adam Scott</div>
-          <div class="bracket-golfer"><span class="g-num">34</span>Marco Penge</div>
-          <div class="bracket-golfer"><span class="g-num">35</span>J.J. Spaun</div>
-          <div class="bracket-golfer"><span class="g-num">36</span>Jacob Bridgeman</div>
-          <div class="bracket-golfer"><span class="g-num">37</span>Cameron Smith</div>
-          <div class="bracket-golfer"><span class="g-num">38</span>Nicolai Højgaard</div>
-          <div class="bracket-golfer"><span class="g-num">39</span>Will Zalatoris</div>
-          <div class="bracket-golfer"><span class="g-num">40</span>Tony Finau</div>
-          <div class="bracket-golfer"><span class="g-num">41</span>Sahith Theegala</div>
-          <div class="bracket-golfer"><span class="g-num">42</span>Max Homa</div>
-          <div class="bracket-golfer"><span class="g-num">43</span>Maverick McNealy</div>
-          <div class="bracket-golfer"><span class="g-num">44</span>Harris English</div>
-          <div class="bracket-golfer"><span class="g-num">45</span>Ben Griffin</div>
-          <div class="bracket-golfer"><span class="g-num">46</span>Casey Jarvis</div>
-          <div class="bracket-golfer"><span class="g-num">47</span>Daniel Berger</div>
-          <div class="bracket-golfer"><span class="g-num">48</span>Thomas Detry</div>
-          <div class="bracket-golfer"><span class="g-num">49</span>Brian Harman</div>
-          <div class="bracket-golfer"><span class="g-num">50</span>Aaron Rai</div>
-        </div>
-        <div class="bracket-col">
-          <div class="bracket-col-head">Bracket 3</div>
-          <div class="bracket-col-sub">Ranks 51–75</div>
-          <div class="bracket-golfer"><span class="g-num">51</span>Dustin Johnson</div>
-          <div class="bracket-golfer"><span class="g-num">52</span>Tom Kim</div>
-          <div class="bracket-golfer"><span class="g-num">53</span>Ryan Fox</div>
-          <div class="bracket-golfer"><span class="g-num">54</span>Alex Noren</div>
-          <div class="bracket-golfer"><span class="g-num">55</span>Anthony Kim</div>
-          <div class="bracket-golfer"><span class="g-num">56</span>Ryan Gerard</div>
-          <div class="bracket-golfer"><span class="g-num">57</span>Billy Horschel</div>
-          <div class="bracket-golfer"><span class="g-num">58</span>Wyndham Clark</div>
-          <div class="bracket-golfer"><span class="g-num">59</span>Taylor Pendrith</div>
-          <div class="bracket-golfer"><span class="g-num">60</span>Rasmus Højgaard</div>
-          <div class="bracket-golfer"><span class="g-num">61</span>Keegan Bradley</div>
-          <div class="bracket-golfer"><span class="g-num">62</span>Sergio Garcia</div>
-          <div class="bracket-golfer"><span class="g-num">63</span>Max Greyserman</div>
-          <div class="bracket-golfer"><span class="g-num">64</span>Rasmus Neergaard-P.</div>
-          <div class="bracket-golfer"><span class="g-num">65</span>Nick Taylor</div>
-          <div class="bracket-golfer"><span class="g-num">66</span>Davis Thompson</div>
-          <div class="bracket-golfer"><span class="g-num">67</span>Byeong Hun An</div>
-          <div class="bracket-golfer"><span class="g-num">68</span>Kurt Kitayama</div>
-          <div class="bracket-golfer"><span class="g-num">69</span>Jayden Schaper</div>
-          <div class="bracket-golfer"><span class="g-num">70</span>Tom McKibbin</div>
-          <div class="bracket-golfer"><span class="g-num">71</span>Haotong Li</div>
-          <div class="bracket-golfer"><span class="g-num">72</span>Matt McCarty</div>
-          <div class="bracket-golfer"><span class="g-num">73</span>Aldrich Potgieter</div>
-          <div class="bracket-golfer"><span class="g-num">74</span>Pierceson Coody</div>
-          <div class="bracket-golfer"><span class="g-num">75</span>Carlos Ortiz</div>
-        </div>
-        <div class="bracket-col">
-          <div class="bracket-col-head">Bracket 4</div>
-          <div class="bracket-col-sub">Ranks 76–100</div>
-          <div class="bracket-golfer"><span class="g-num">76</span>Harry Hall</div>
-          <div class="bracket-golfer"><span class="g-num">77</span>Phil Mickelson</div>
-          <div class="bracket-golfer"><span class="g-num">78</span>Davis Riley</div>
-          <div class="bracket-golfer"><span class="g-num">79</span>Andrew Novak</div>
-          <div class="bracket-golfer"><span class="g-num">80</span>Michael Kim</div>
-          <div class="bracket-golfer"><span class="g-num">81</span>Sam Stevens</div>
-          <div class="bracket-golfer"><span class="g-num">82</span>Johnny Keefer</div>
-          <div class="bracket-golfer"><span class="g-num">83</span>Denny McCarthy</div>
-          <div class="bracket-golfer"><span class="g-num">84</span>Danny Willett</div>
-          <div class="bracket-golfer"><span class="g-num">85</span>Charl Schwartzel</div>
-          <div class="bracket-golfer"><span class="g-num">86</span>Bubba Watson</div>
-          <div class="bracket-golfer"><span class="g-num">87</span>Michael Brennan</div>
-          <div class="bracket-golfer"><span class="g-num">88</span>Sami Välimäki</div>
-          <div class="bracket-golfer"><span class="g-num">89</span>Kristoffer Reitan</div>
-          <div class="bracket-golfer"><span class="g-num">90</span>Naoyuki Kataoka</div>
-          <div class="bracket-golfer"><span class="g-num">91</span>Zach Johnson</div>
-          <div class="bracket-golfer"><span class="g-num">92</span>Brian Campbell</div>
-          <div class="bracket-golfer"><span class="g-num">93</span>Angel Cabrera</div>
-          <div class="bracket-golfer"><span class="g-num">94</span>Mike Weir</div>
-          <div class="bracket-golfer"><span class="g-num">95</span>Fred Couples</div>
-          <div class="bracket-golfer"><span class="g-num">96</span>José María Olazábal</div>
-          <div class="bracket-golfer"><span class="g-num">97</span>Vijay Singh</div>
-          <div class="bracket-golfer"><span class="g-num">98</span>Mason Howell</div>
-          <div class="bracket-golfer"><span class="g-num">99</span>Fifa Laopakdee</div>
-          <div class="bracket-golfer"><span class="g-num">100</span>Mateo Pulcini / Ethan Fang</div>
-        </div>
-      </div>
-    </div>
-    <div>
-      <div class="participants-section-title">
-        <span>Participants &amp; Picks</span>
-        <small id="p-count-label">Loading…</small>
-      </div>
-      <div class="participants-grid-print" id="print-participants">
-        <div style="color:#8aa898;font-size:7.5pt;grid-column:1/-1;padding:8px 0">Loading participants from sheet…</div>
-      </div>
-    </div>
-  </div>
-  <div class="p2-footer">
-    <span class="p2-footer-left">Cobh Golf Club Sweep · Masters 2026 · Augusta National</span>
-    <span class="p2-footer-right" id="poster-updated">Auto-updated</span>
-  </div>
-</div>
-</div>
 
-</div>
+  <script>
+    const PARTICIPANTS_CSV = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTcK-7L1HPPhCjzjORjaxQ9DUEznolHMbCkG1e-cEXZ2v2xx_qw7DygtkfdNjO9GiSsyd5KaQaS8RU9/pub?gid=1462564797&single=true&output=csv';
 
-<script>
-var PROXY='https://corsproxy.io/?';
-var PARTICIPANTS_CSV='https://docs.google.com/spreadsheets/d/e/2PACX-1vTcK-7L1HPPhCjzjORjaxQ9DUEznolHMbCkG1e-cEXZ2v2xx_qw7DygtkfdNjO9GiSsyd5KaQaS8RU9/pub?gid=1462564797&single=true&output=csv';
-function parseCSV(text){var lines=text.trim().split('\n');if(lines.length<2)return[];var h=sl(lines[0]);var r=[];for(var i=1;i<lines.length;i++){if(!lines[i].trim())continue;var v=sl(lines[i]);var row={};for(var j=0;j<h.length;j++)row[h[j]]=(v[j]||'').trim();r.push(row);}return r;}
-function sl(line){var r=[],c='',q=false;for(var i=0;i<line.length;i++){var ch=line[i];if(ch==='"'){q=!q;}else if(ch===','&&!q){r.push(c.trim());c='';}else{c+=ch;}}r.push(c.trim());return r;}
-function loadParticipants(){
-  fetch(PROXY+encodeURIComponent(PARTICIPANTS_CSV)+'&t='+Date.now())
-    .then(function(r){if(!r.ok)throw new Error('HTTP '+r.status);return r.text();})
-    .then(function(csv){
-      var rows=parseCSV(csv);
-      var ps=rows.map(function(r){return{name:r['Name']||r['EntrantName']||'',b1p1:r['B1Pick1']||'',b1p2:r['B1Pick2']||'',b2p1:r['B2Pick1']||'',b2p2:r['B2Pick2']||'',b3p1:r['B3Pick1']||'',b3p2:r['B3Pick2']||'',b4p1:r['B4Pick1']||'',b4p2:r['B4Pick2']||''};}).filter(function(p){return p.name.length>0;});
-      renderParticipants(ps);
-      var t=new Date().toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'});
-      document.getElementById('poster-updated').textContent='Updated '+t;
-      document.getElementById('refresh-info').textContent='Last updated '+t+' ('+ps.length+' participants)';
-    })
-    .catch(function(e){document.getElementById('print-participants').innerHTML='<div style="color:#c00;font-size:7.5pt;grid-column:1/-1">Could not load: '+e.message+'</div>';});
-}
-function renderParticipants(ps){
-  var el=document.getElementById('print-participants');
-  document.getElementById('p-count-label').textContent=ps.length+' entries';
-  if(!ps.length){el.innerHTML='<div style="color:#8aa898;font-size:7.5pt;grid-column:1/-1">No participants yet!</div>';return;}
-  function tag(cls,n){return n?'<span class="pp-bracket pp-'+cls+'">'+n+'</span>':'';}
-  el.innerHTML=ps.map(function(p,i){
-    var picks=[tag('b1',p.b1p1),tag('b1',p.b1p2),tag('b2',p.b2p1),tag('b2',p.b2p2),tag('b3',p.b3p1),tag('b3',p.b3p2),tag('b4',p.b4p1),tag('b4',p.b4p2)].filter(Boolean).join(' ');
-    return '<div class="pp-card"><div class="pp-name">'+(i+1)+'. '+p.name+'</div><div class="pp-picks">'+(picks||'<span class="pp-empty">Picks pending</span>')+'</div></div>';
-  }).join('');
-}
-loadParticipants();
-setInterval(loadParticipants,300000);
-</script>
-</body>
-</html>
+    function splitCSVLine(line) {
+      const result = [];
+      let current = '';
+      let inQuotes = false;
+      for (let i = 0; i < line.length; i++) {
+        const char = line[i];
+        const next = line[i + 1];
+        if (char === '"' && inQuotes && next === '"') { current += '"'; i++; }
+        else if (char === '"') inQuotes = !inQuotes;
+        else if (char === ',' && !inQuotes) { result.push(current); current = ''; }
+        else current += char;
+      }
+      result.push(current);
+      return result.map(v => v.trim());
+    }
+
+    function parseCSV(csv) {
+      const lines = csv.trim().split(/\r?\n/);
+      const headers = splitCSVLine(lines[0]);
+      return lines.slice(1).map(line => {
+        const values = splitCSVLine(line);
+        const row = {};
+        headers.forEach((h, i) => row[h] = values[i] ?? '');
+        return row;
+      });
+    }
+
+    async function init() {
+      const csv = await fetch(PARTICIPANTS_CSV + '&t=' + Date.now()).then(r => r.text());
+      const rows = parseCSV(csv).map(r => ({
+        name: r.Name || '',
+        picks: [r.B1Pick1||'', r.B1Pick2||'', r.B2Pick1||'', r.B2Pick2||'', r.B3Pick1||'', r.B3Pick2||'', r.B4Pick1||'', r.B4Pick2||'']
+      })).filter(r => r.name);
+
+      const labels = ['Bracket 1','Bracket 2','Bracket 3','Bracket 4'];
+      const classes = ['b1','b2','b3','b4'];
+
+      document.getElementById('entries-grid').innerHTML = rows.map(entry => `
+        <div class="entry-card">
+          <div class="entry-name">${entry.name}</div>
+          ${[0,1,2,3].map(bi => {
+            const p1 = entry.picks[bi * 2] || '';
+            const p2 = entry.picks[bi * 2 + 1] || '';
+            if
