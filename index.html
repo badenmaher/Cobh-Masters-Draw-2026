@@ -50,7 +50,7 @@
       justify-content:space-between;
       align-items:center;
       gap:24px;
-      padding:28px 0 22px;
+      padding:28px 0 18px;
     }
 
     .brand{display:flex;align-items:center;gap:16px}
@@ -93,6 +93,16 @@
     .live-dot{
       width:8px;height:8px;border-radius:50%;
       background:#97ff83;box-shadow:0 0 12px #97ff83;
+    }
+
+    .demo-banner{
+      display:none;
+      border-top:1px solid var(--line);
+      background:rgba(220,180,74,.12);
+      color:var(--gold2);
+      text-align:center;
+      padding:12px 16px;
+      font-weight:700;
     }
 
     .topnav{
@@ -361,6 +371,10 @@
         </div>
       </div>
 
+      <div id="demo-banner" class="demo-banner">
+        Preview mode — this is what the Masters site will look like live once real entries and scoring are active.
+      </div>
+
       <nav class="topnav">
         <div class="container tabs">
           <button class="tab active" data-tab="leaderboard">🏆 Leaderboard</button>
@@ -451,7 +465,64 @@
       highlightsCsv:   'https://docs.google.com/spreadsheets/d/e/2PACX-1vTcK-7L1HPPhCjzjORjaxQ9DUEznolHMbCkG1e-cEXZ2v2xx_qw7DygtkfdNjO9GiSsyd5KaQaS8RU9/pub?gid=1201303996&single=true&output=csv',
       podiumCsv:       'https://docs.google.com/spreadsheets/d/e/2PACX-1vTcK-7L1HPPhCjzjORjaxQ9DUEznolHMbCkG1e-cEXZ2v2xx_qw7DygtkfdNjO9GiSsyd5KaQaS8RU9/pub?gid=1433024356&single=true&output=csv',
       participantsCsv: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTcK-7L1HPPhCjzjORjaxQ9DUEznolHMbCkG1e-cEXZ2v2xx_qw7DygtkfdNjO9GiSsyd5KaQaS8RU9/pub?gid=1462564797&single=true&output=csv',
-      refreshInterval: 60
+      refreshInterval: 60,
+      demoMode: true
+    };
+
+    const DEMO_DATA = {
+      leaderboard: [
+        { rank: 1, name: 'DEMO Michael Brennan', totalScore: -18, prev: 2, move: '▲1' },
+        { rank: 2, name: 'DEMO Patrick Doyle', totalScore: -16, prev: 1, move: '▼1' },
+        { rank: 3, name: 'DEMO Stephen Kearney', totalScore: -15, prev: 4, move: '▲1' },
+        { rank: 4, name: 'DEMO Daniel Murphy', totalScore: -12, prev: 3, move: '▼1' },
+        { rank: 5, name: 'DEMO Andrew Collins', totalScore: -10, prev: 5, move: '–' },
+        { rank: 6, name: 'DEMO James Nolan', totalScore: -8, prev: 7, move: '▲1' },
+        { rank: 7, name: 'DEMO Thomas Farrell', totalScore: -6, prev: 6, move: '▼1' },
+        { rank: 8, name: 'DEMO Robert Keane', totalScore: -2, prev: 8, move: '–' }
+      ],
+      highlights: [
+        {
+          date: '09/04/2026',
+          round: 'Preview',
+          leader: 'DEMO Michael Brennan',
+          leaderScore: '-18',
+          biggestRiser: 'DEMO Stephen Kearney (▲1)',
+          biggestFaller: 'DEMO Patrick Doyle (▼1)'
+        }
+      ],
+      participants: [
+        {
+          name: 'DEMO Michael Brennan',
+          picks: ['Scottie Scheffler','Rory McIlroy','Tommy Fleetwood','Shane Lowry','Jason Day','Sepp Straka','Brooks Koepka','Davis Riley'],
+          tieBreaker: '274'
+        },
+        {
+          name: 'DEMO Patrick Doyle',
+          picks: ['Jon Rahm','Ludvig Aberg','Matt Fitzpatrick','Sungjae Im','Adam Scott','Russell Henley','Tony Finau','Max Homa'],
+          tieBreaker: '276'
+        },
+        {
+          name: 'DEMO Stephen Kearney',
+          picks: ['Bryson DeChambeau','Xander Schauffele','Cameron Young','Jordan Spieth','Sam Burns','Ryan Fox','Dustin Johnson','Phil Mickelson'],
+          tieBreaker: '275'
+        },
+        {
+          name: 'DEMO Daniel Murphy',
+          picks: ['Collin Morikawa','Patrick Cantlay','Justin Thomas','Hideki Matsuyama','Corey Conners','Sahith Theegala','Tom Kim','Wyndham Clark'],
+          tieBreaker: '277'
+        },
+        {
+          name: 'DEMO Andrew Collins',
+          picks: ['Brooks Koepka','Jordan Spieth','Min Woo Lee','Patrick Reed','Keegan Bradley','Brian Harman','Alex Noren','Ryan Gerard'],
+          tieBreaker: '278'
+        },
+        {
+          name: 'DEMO James Nolan',
+          picks: ['Rory McIlroy','Jon Rahm','Tommy Fleetwood','Sam Burns','Sepp Straka','Davis Thompson','Tony Finau','Aaron Rai'],
+          tieBreaker: '279'
+        }
+      ],
+      podium: []
     };
 
     let state = {
@@ -527,6 +598,14 @@
       return 'move-flat';
     }
 
+    function enableDemoMode() {
+      state.leaderboard = DEMO_DATA.leaderboard;
+      state.highlights = DEMO_DATA.highlights;
+      state.participants = DEMO_DATA.participants;
+      state.podium = DEMO_DATA.podium;
+      document.getElementById('demo-banner').style.display = 'block';
+    }
+
     async function loadData() {
       try {
         const stamp = Date.now();
@@ -589,19 +668,32 @@
           })).filter(r => r.name);
         }
 
+        const noRealData = !state.leaderboard.length && !state.highlights.length && !state.participants.length;
+
+        if (SHEETCONFIG.demoMode || noRealData) {
+          enableDemoMode();
+        } else {
+          document.getElementById('demo-banner').style.display = 'none';
+        }
+
         renderLeaderboard();
         renderMovers();
         renderHighlights();
         renderEntries();
         renderPodium();
 
-        const updatedEl = document.getElementById('updated-time');
-        updatedEl.textContent = `Updated ${new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'})}`;
+        document.getElementById('updated-time').textContent =
+          `Updated ${new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'})}`;
 
         countdownVal = SHEETCONFIG.refreshInterval;
         updateCountdown();
       } catch (e) {
         console.error(e);
+        enableDemoMode();
+        renderLeaderboard();
+        renderMovers();
+        renderHighlights();
+        renderEntries();
       }
     }
 
