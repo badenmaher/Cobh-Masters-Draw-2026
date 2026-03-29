@@ -19,13 +19,10 @@
       --text:#f6eed4;
       --soft:#d4c79d;
       --muted:#aebba4;
-      --green:#1f6c43;
-      --green2:#2a8653;
       --shadow:0 18px 40px rgba(0,0,0,.28);
       --radius:18px;
       --max:1180px;
     }
-
     *{box-sizing:border-box}
     body{
       margin:0;
@@ -36,7 +33,6 @@
       color:var(--text);
       min-height:100vh;
     }
-
     .container{width:min(100% - 32px,var(--max));margin:0 auto}
     .hero{
       border-bottom:1px solid var(--line);
@@ -44,7 +40,6 @@
         radial-gradient(circle at center, rgba(53,136,78,.24), transparent 42%),
         linear-gradient(180deg, rgba(10,55,31,.98), rgba(12,58,37,.92));
     }
-
     .hero-inner{
       display:flex;
       justify-content:space-between;
@@ -52,7 +47,6 @@
       gap:24px;
       padding:28px 0 18px;
     }
-
     .brand{display:flex;align-items:center;gap:16px}
     .brand-mark{
       width:46px;height:46px;border-radius:50%;
@@ -60,7 +54,6 @@
       display:grid;place-items:center;color:var(--gold)
     }
     .brand-mark svg{width:24px;height:24px}
-
     h1{
       margin:0;
       font-family:'Cormorant Garamond',serif;
@@ -68,9 +61,7 @@
       line-height:1;
       color:var(--gold2);
     }
-
     .subtitle{margin:6px 0 0;color:var(--soft);font-size:1.06rem}
-
     .hero-meta{
       text-align:right;
       display:flex;
@@ -79,7 +70,6 @@
       gap:8px;
       color:var(--soft);
     }
-
     .live-pill{
       display:inline-flex;align-items:center;gap:8px;
       background:#2b7b47;
@@ -94,7 +84,6 @@
       width:8px;height:8px;border-radius:50%;
       background:#97ff83;box-shadow:0 0 12px #97ff83;
     }
-
     .demo-banner{
       display:none;
       border-top:1px solid var(--line);
@@ -104,7 +93,6 @@
       padding:12px 16px;
       font-weight:700;
     }
-
     .topnav{
       border-top:1px solid var(--line);
       background:rgba(16,55,35,.7);
@@ -113,24 +101,19 @@
       top:0;
       z-index:20;
     }
-
     .tabs{
       display:flex;flex-wrap:wrap;gap:10px;min-height:64px;align-items:center;
     }
-
     .tab{
       background:none;border:none;color:var(--soft);
       padding:18px 14px 15px;cursor:pointer;
       border-bottom:3px solid transparent;
       font-weight:700;font-size:1rem;
     }
-
     .tab.active{color:var(--gold2);border-color:var(--gold)}
-
     .main{padding:26px 0 90px}
     .section{display:none}
     .section.active{display:block}
-
     .panel{
       background:linear-gradient(180deg, rgba(19,69,44,.96), rgba(11,45,28,.96));
       border:1px solid var(--line);
@@ -138,16 +121,13 @@
       box-shadow:var(--shadow);
       overflow:hidden;
     }
-
     .panel-head{
       padding:18px 20px;
       border-bottom:1px solid var(--line);
       display:flex;justify-content:space-between;align-items:center;gap:16px;
     }
-
     .panel-title{margin:0;font-size:1.06rem;font-weight:800;color:var(--gold2)}
     .panel-sub{color:var(--muted);font-size:.92rem}
-
     .table-wrap{overflow:auto}
     table{width:100%;border-collapse:collapse;min-width:760px}
     th,td{padding:14px 16px;text-align:left;border-bottom:1px solid rgba(220,180,74,.12)}
@@ -158,9 +138,7 @@
       letter-spacing:.08em;
       background:rgba(255,255,255,.02);
     }
-
     tbody tr:hover{background:rgba(255,255,255,.03)}
-
     .rank-medal{font-weight:800;color:var(--gold2)}
     .move-up{color:#90e6a4;font-weight:700}
     .move-down{color:#ffab9f;font-weight:700}
@@ -168,13 +146,11 @@
     .score-good{color:#99e49d;font-weight:700}
     .score-even{color:var(--soft);font-weight:700}
     .score-bad{color:#ffbaae;font-weight:700}
-
     .cards{
       display:grid;
       grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
       gap:18px;
     }
-
     .card{
       background:linear-gradient(180deg, rgba(24,82,52,.98), rgba(11,43,28,.96));
       border:1px solid var(--line);
@@ -182,7 +158,6 @@
       padding:18px;
       box-shadow:var(--shadow);
     }
-
     .card-kicker{
       font-size:.78rem;
       text-transform:uppercase;
@@ -190,22 +165,18 @@
       color:var(--muted);
       margin-bottom:8px;
     }
-
     .card-title{
       margin:0 0 8px;
       color:var(--gold2);
       font-weight:800;
       font-size:1.08rem;
     }
-
     .card-text{margin:0;color:var(--soft);line-height:1.55}
-
     .entries-grid{
       display:grid;
       grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
       gap:18px;
     }
-
     .entry-card{
       background:linear-gradient(180deg, rgba(24,82,52,.98), rgba(11,43,28,.96));
       border:1px solid var(--line);
@@ -213,22 +184,18 @@
       padding:18px;
       box-shadow:var(--shadow);
     }
-
     .entry-name{
       font-size:1.04rem;
       font-weight:800;
       color:var(--gold2);
       margin-bottom:14px;
     }
-
     .entry-brackets{display:grid;gap:10px}
-
     .bracket-row{
       background:rgba(255,255,255,.03);
       border-radius:12px;
       padding:10px 12px;
     }
-
     .bracket-label{
       font-size:.76rem;
       text-transform:uppercase;
@@ -237,9 +204,7 @@
       margin-bottom:8px;
       font-weight:700;
     }
-
     .bracket-picks{display:flex;flex-wrap:wrap;gap:8px}
-
     .pick-tag{
       display:inline-flex;
       align-items:center;
@@ -250,18 +215,15 @@
       line-height:1;
       color:#fff;
     }
-
     .pick-b1{background:#1e6c42}
     .pick-b2{background:#2d7e4b}
     .pick-b3{background:#8b6a2c}
     .pick-b4{background:#6d4d22}
-
     .entry-tiebreaker{
       margin-top:12px;
       font-size:.86rem;
       color:var(--soft);
     }
-
     .search-row{padding:16px 20px 0}
     .search-input{
       width:100%;
@@ -273,14 +235,12 @@
       outline:none;
     }
     .search-input::placeholder{color:var(--muted)}
-
     .footer-bar{
       position:fixed;left:0;right:0;bottom:0;z-index:25;
       background:rgba(20,74,47,.94);
       border-top:1px solid var(--line);
       backdrop-filter:blur(8px);
     }
-
     .footer-inner{
       width:min(100% - 32px, var(--max));
       margin:0 auto;
@@ -289,7 +249,6 @@
       color:var(--soft);
       font-size:.95rem;
     }
-
     .podium-overlay{
       display:none;
       position:fixed;inset:0;
@@ -299,9 +258,7 @@
       padding:24px;
       overflow:auto;
     }
-
     .podium-overlay.show{display:block}
-
     .podium-wrap{
       width:min(100%,960px);
       margin:48px auto;
@@ -312,33 +269,27 @@
       box-shadow:var(--shadow);
       text-align:center;
     }
-
     .podium-title{
       font-family:'Cormorant Garamond',serif;
       font-size:clamp(2rem,4vw,3rem);
       color:var(--gold2);
       margin:0 0 6px;
     }
-
     .podium-subtitle{color:var(--soft);margin-bottom:24px}
-
     .podium-places{
       display:grid;
       grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
       gap:18px;
     }
-
     .podium-place{
       background:rgba(255,255,255,.04);
       border:1px solid var(--line);
       border-radius:18px;
       padding:20px 16px;
     }
-
     .podium-medal{font-size:2rem;margin-bottom:8px}
     .podium-name{font-weight:800;color:var(--gold2);margin-bottom:6px}
     .podium-score,.podium-prize{color:var(--soft);font-size:.96rem}
-
     @media (max-width:800px){
       .hero-inner{flex-direction:column;align-items:flex-start}
       .hero-meta{align-items:flex-start;text-align:left}
@@ -372,7 +323,7 @@
       </div>
 
       <div id="demo-banner" class="demo-banner">
-        Preview mode — this is what the Masters site will look like live once real entries and scoring are active.
+        Preview mode — leaderboard, movers and highlights are demo. Participant entries are live.
       </div>
 
       <nav class="topnav">
@@ -476,9 +427,7 @@
         { rank: 3, name: 'DEMO Stephen Kearney', totalScore: -15, prev: 4, move: '▲1' },
         { rank: 4, name: 'DEMO Daniel Murphy', totalScore: -12, prev: 3, move: '▼1' },
         { rank: 5, name: 'DEMO Andrew Collins', totalScore: -10, prev: 5, move: '–' },
-        { rank: 6, name: 'DEMO James Nolan', totalScore: -8, prev: 7, move: '▲1' },
-        { rank: 7, name: 'DEMO Thomas Farrell', totalScore: -6, prev: 6, move: '▼1' },
-        { rank: 8, name: 'DEMO Robert Keane', totalScore: -2, prev: 8, move: '–' }
+        { rank: 6, name: 'DEMO James Nolan', totalScore: -8, prev: 7, move: '▲1' }
       ],
       highlights: [
         {
@@ -488,38 +437,6 @@
           leaderScore: '-18',
           biggestRiser: 'DEMO Stephen Kearney (▲1)',
           biggestFaller: 'DEMO Patrick Doyle (▼1)'
-        }
-      ],
-      participants: [
-        {
-          name: 'DEMO Michael Brennan',
-          picks: ['Scottie Scheffler','Rory McIlroy','Tommy Fleetwood','Shane Lowry','Jason Day','Sepp Straka','Brooks Koepka','Davis Riley'],
-          tieBreaker: '274'
-        },
-        {
-          name: 'DEMO Patrick Doyle',
-          picks: ['Jon Rahm','Ludvig Aberg','Matt Fitzpatrick','Sungjae Im','Adam Scott','Russell Henley','Tony Finau','Max Homa'],
-          tieBreaker: '276'
-        },
-        {
-          name: 'DEMO Stephen Kearney',
-          picks: ['Bryson DeChambeau','Xander Schauffele','Cameron Young','Jordan Spieth','Sam Burns','Ryan Fox','Dustin Johnson','Phil Mickelson'],
-          tieBreaker: '275'
-        },
-        {
-          name: 'DEMO Daniel Murphy',
-          picks: ['Collin Morikawa','Patrick Cantlay','Justin Thomas','Hideki Matsuyama','Corey Conners','Sahith Theegala','Tom Kim','Wyndham Clark'],
-          tieBreaker: '277'
-        },
-        {
-          name: 'DEMO Andrew Collins',
-          picks: ['Brooks Koepka','Jordan Spieth','Min Woo Lee','Patrick Reed','Keegan Bradley','Brian Harman','Alex Noren','Ryan Gerard'],
-          tieBreaker: '278'
-        },
-        {
-          name: 'DEMO James Nolan',
-          picks: ['Rory McIlroy','Jon Rahm','Tommy Fleetwood','Sam Burns','Sepp Straka','Davis Thompson','Tony Finau','Aaron Rai'],
-          tieBreaker: '279'
         }
       ],
       podium: []
@@ -540,11 +457,9 @@
       const result = [];
       let current = '';
       let inQuotes = false;
-
       for (let i = 0; i < line.length; i++) {
         const char = line[i];
         const next = line[i + 1];
-
         if (char === '"' && inQuotes && next === '"') {
           current += '"';
           i++;
@@ -557,7 +472,6 @@
           current += char;
         }
       }
-
       result.push(current);
       return result.map(v => v.trim());
     }
@@ -568,7 +482,6 @@
       const lines = clean.split(/\r?\n/);
       if (!lines.length) return [];
       const headers = splitCSVLine(lines[0]);
-
       return lines.slice(1).map(line => {
         const values = splitCSVLine(line);
         const row = {};
@@ -601,7 +514,6 @@
     function enableDemoMode() {
       state.leaderboard = DEMO_DATA.leaderboard;
       state.highlights = DEMO_DATA.highlights;
-      state.participants = DEMO_DATA.participants;
       state.podium = DEMO_DATA.podium;
       document.getElementById('demo-banner').style.display = 'block';
     }
@@ -668,9 +580,7 @@
           })).filter(r => r.name);
         }
 
-        const noRealData = !state.leaderboard.length && !state.highlights.length && !state.participants.length;
-
-        if (SHEETCONFIG.demoMode || noRealData) {
+        if (SHEETCONFIG.demoMode) {
           enableDemoMode();
         } else {
           document.getElementById('demo-banner').style.display = 'none';
@@ -689,7 +599,7 @@
         updateCountdown();
       } catch (e) {
         console.error(e);
-        enableDemoMode();
+        if (SHEETCONFIG.demoMode) enableDemoMode();
         renderLeaderboard();
         renderMovers();
         renderHighlights();
@@ -820,7 +730,7 @@
       const board = state.leaderboard || [];
       const lastPlace = board.length ? board[board.length - 1] : null;
 
-      if (!winners.length) {
+      if (!winners.length || SHEETCONFIG.demoMode) {
         overlay.classList.remove('show');
         footer.style.display = '';
         main.style.display = '';
