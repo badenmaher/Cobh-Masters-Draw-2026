@@ -1,916 +1,804 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Masters 2026 Sweep — Live Leaderboard</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Work+Sans:wght@300..700&display=swap" rel="stylesheet">
-<style>
-/* ── TOKENS ─────────────────────────────────────────── */
-:root {
-  --green-deep:   #0d2818;
-  --green-mid:    #1a472a;
-  --green-bright: #2d7a3a;
-  --green-light:  #4a9e58;
-  --gold:         #c9a227;
-  --gold-light:   #e8c457;
-  --cream:        #f5f0e8;
-  --text-on-dark: #e8e4dc;
-  --text-muted:   #a09880;
-  --red-score:    #e05a4b;
-  --green-score:  #5db87a;
-  --silver:       #b0b8c0;
-  --bronze:       #cd7f32;
-  --font-display: 'Playfair Display', Georgia, serif;
-  --font-body:    'Work Sans', 'Helvetica Neue', sans-serif;
-  --text-xs:   clamp(0.75rem, 0.7rem + 0.25vw, 0.875rem);
-  --text-sm:   clamp(0.875rem, 0.8rem + 0.35vw, 1rem);
-  --text-base: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
-  --text-lg:   clamp(1.125rem, 1rem + 0.75vw, 1.5rem);
-  --text-xl:   clamp(1.5rem, 1.2rem + 1.25vw, 2.25rem);
-  --text-2xl:  clamp(2rem, 1.2rem + 2.5vw, 3.5rem);
-  --space-1: 0.25rem; --space-2: 0.5rem; --space-3: 0.75rem;
-  --space-4: 1rem; --space-6: 1.5rem; --space-8: 2rem;
-  --space-10: 2.5rem; --space-12: 3rem; --space-16: 4rem;
-  --radius-sm: 0.375rem; --radius-md: 0.5rem;
-  --radius-lg: 0.75rem; --radius-xl: 1rem;
-  --shadow-card: 0 2px 8px oklch(0 0 0 / 0.4), 0 8px 24px oklch(0 0 0 / 0.3);
-  --transition: 180ms cubic-bezier(0.16, 1, 0.3, 1);
-}
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Masters 2026 Sweep</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#072b1b;
+      --bg2:#0d3b26;
+      --panel:#123f29;
+      --panel2:#0f3522;
+      --line:rgba(220,180,74,.22);
+      --gold:#dcb44a;
+      --gold2:#f2d57b;
+      --text:#f6eed4;
+      --soft:#d4c79d;
+      --muted:#aebba4;
+      --green:#1f6c43;
+      --green2:#2a8653;
+      --shadow:0 18px 40px rgba(0,0,0,.28);
+      --radius:18px;
+      --max:1180px;
+    }
 
-/* ── RESET ──────────────────────────────────────────── */
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
-body {
-  font-family: var(--font-body);
-  font-size: var(--text-base);
-  background: var(--green-deep);
-  color: var(--text-on-dark);
-  min-height: 100dvh;
-  line-height: 1.6;
-}
-img { display: block; max-width: 100%; }
-button { cursor: pointer; font: inherit; border: none; }
-table { border-collapse: collapse; width: 100%; }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:'Inter',sans-serif;
+      background:
+        radial-gradient(circle at top, rgba(61,131,84,.22), transparent 35%),
+        linear-gradient(180deg,#082c1b 0%,#061f13 100%);
+      color:var(--text);
+      min-height:100vh;
+    }
 
-/* ── LAYOUT ──────────────────────────────────────────── */
-.container { max-width: 1100px; margin-inline: auto; padding-inline: var(--space-4); }
+    .container{width:min(100% - 32px,var(--max));margin:0 auto}
+    .hero{
+      border-bottom:1px solid var(--line);
+      background:
+        radial-gradient(circle at center, rgba(53,136,78,.24), transparent 42%),
+        linear-gradient(180deg, rgba(10,55,31,.98), rgba(12,58,37,.92));
+    }
 
-/* ── HEADER ──────────────────────────────────────────── */
-header {
-  background: linear-gradient(180deg, #0a1f10 0%, var(--green-mid) 100%);
-  border-bottom: 2px solid var(--gold);
-  padding: var(--space-8) var(--space-4) var(--space-6);
-  text-align: center;
-  position: sticky; top: 0; z-index: 100;
-}
-.header-inner {
-  max-width: 1100px;
-  margin-inline: auto;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--space-4);
-  flex-wrap: wrap;
-}
-.logo-area { display: flex; align-items: center; gap: var(--space-4); }
-.logo-svg { flex-shrink: 0; }
-.comp-title {
-  font-family: var(--font-display);
-  font-size: var(--text-xl);
-  color: var(--gold-light);
-  line-height: 1.1;
-  text-align: left;
-}
-.comp-subtitle {
-  font-size: var(--text-sm);
-  color: var(--text-muted);
-  font-weight: 400;
-  margin-top: var(--space-1);
-}
-.header-meta {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: var(--space-1);
-  font-size: var(--text-xs);
-  color: var(--text-muted);
-}
-.status-badge {
-  background: var(--green-bright);
-  color: #fff;
-  padding: var(--space-1) var(--space-3);
-  border-radius: var(--radius-full, 9999px);
-  font-size: var(--text-xs);
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  display: inline-flex;
-  align-items: center;
-  gap: var(--space-1);
-}
-.status-badge.live::before {
-  content: '';
-  width: 6px; height: 6px;
-  border-radius: 50%;
-  background: #5db87a;
-  animation: pulse 1.5s ease infinite;
-}
-@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.4} }
+    .hero-inner{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:24px;
+      padding:28px 0 22px;
+    }
 
-/* ── TABS ─────────────────────────────────────────────── */
-nav.tabs {
-  background: var(--green-mid);
-  border-bottom: 1px solid oklch(1 0 0 / 0.1);
-  position: sticky; top: 76px; z-index: 90;
-}
-.tabs-inner {
-  max-width: 1100px;
-  margin-inline: auto;
-  padding-inline: var(--space-4);
-  display: flex;
-  gap: 0;
-  overflow-x: auto;
-  scrollbar-width: none;
-}
-.tabs-inner::-webkit-scrollbar { display: none; }
-.tab-btn {
-  padding: var(--space-3) var(--space-6);
-  background: none;
-  color: var(--text-muted);
-  font-size: var(--text-sm);
-  font-weight: 500;
-  border-bottom: 2px solid transparent;
-  white-space: nowrap;
-  transition: color var(--transition), border-color var(--transition);
-}
-.tab-btn:hover { color: var(--text-on-dark); }
-.tab-btn.active {
-  color: var(--gold-light);
-  border-bottom-color: var(--gold);
-  font-weight: 600;
-}
+    .brand{display:flex;align-items:center;gap:16px}
+    .brand-mark{
+      width:46px;height:46px;border-radius:50%;
+      border:2px solid var(--gold);
+      display:grid;place-items:center;color:var(--gold)
+    }
+    .brand-mark svg{width:24px;height:24px}
 
-/* ── MAIN CONTENT ────────────────────────────────────── */
-main { padding: var(--space-8) var(--space-4); }
-.section { display: none; }
-.section.active { display: block; }
+    h1{
+      margin:0;
+      font-family:'Cormorant Garamond',serif;
+      font-size:clamp(2rem,4vw,3.2rem);
+      line-height:1;
+      color:var(--gold2);
+    }
 
-/* ── MOVERS ROW ──────────────────────────────────────── */
-.movers-row {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: var(--space-4);
-  margin-bottom: var(--space-8);
-}
-.mover-card {
-  background: var(--green-mid);
-  border: 1px solid oklch(1 0 0 / 0.1);
-  border-radius: var(--radius-lg);
-  padding: var(--space-5) var(--space-6);
-  box-shadow: var(--shadow-card);
-}
-.mover-label {
-  font-size: var(--text-xs);
-  color: var(--text-muted);
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  font-weight: 600;
-  margin-bottom: var(--space-2);
-}
-.mover-name {
-  font-family: var(--font-display);
-  font-size: var(--text-lg);
-  color: var(--cream);
-  margin-bottom: var(--space-1);
-}
-.mover-score {
-  font-size: var(--text-sm);
-  font-weight: 600;
-  font-variant-numeric: tabular-nums;
-}
-.mover-score.under { color: var(--green-score); }
-.mover-score.over  { color: var(--red-score); }
-.mover-score.even  { color: var(--text-muted); }
-.mover-delta {
-  font-size: var(--text-xs);
-  color: var(--text-muted);
-  margin-top: var(--space-1);
-}
+    .subtitle{margin:6px 0 0;color:var(--soft);font-size:1.06rem}
 
-/* ── LEADERBOARD TABLE ───────────────────────────────── */
-.filters {
-  display: flex;
-  gap: var(--space-2);
-  margin-bottom: var(--space-4);
-  flex-wrap: wrap;
-  align-items: center;
-}
-.filter-btn {
-  padding: var(--space-1) var(--space-4);
-  border-radius: var(--radius-full, 9999px);
-  background: oklch(1 0 0 / 0.06);
-  color: var(--text-muted);
-  font-size: var(--text-sm);
-  font-weight: 500;
-  border: 1px solid oklch(1 0 0 / 0.1);
-  transition: all var(--transition);
-}
-.filter-btn:hover { color: var(--text-on-dark); border-color: oklch(1 0 0 / 0.2); }
-.filter-btn.active { background: var(--gold); color: var(--green-deep); border-color: var(--gold); font-weight: 600; }
-#search-box {
-  padding: var(--space-1) var(--space-4);
-  border-radius: var(--radius-full, 9999px);
-  background: oklch(1 0 0 / 0.06);
-  color: var(--text-on-dark);
-  font-size: var(--text-sm);
-  border: 1px solid oklch(1 0 0 / 0.15);
-  width: 200px;
-  margin-left: auto;
-  outline: none;
-}
-#search-box:focus { border-color: var(--gold); }
-#search-box::placeholder { color: var(--text-muted); }
+    .hero-meta{
+      text-align:right;
+      display:flex;
+      flex-direction:column;
+      align-items:flex-end;
+      gap:8px;
+      color:var(--soft);
+    }
 
-.lb-table-wrap { overflow-x: auto; border-radius: var(--radius-lg); }
-.lb-table {
-  width: 100%;
-  font-size: var(--text-sm);
-  font-variant-numeric: tabular-nums;
-}
-.lb-table thead tr {
-  background: var(--green-mid);
-}
-.lb-table th {
-  padding: var(--space-3) var(--space-4);
-  text-align: left;
-  font-weight: 600;
-  color: var(--text-muted);
-  font-size: var(--text-xs);
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  white-space: nowrap;
-  border-bottom: 1px solid oklch(1 0 0 / 0.1);
-}
-.lb-table td {
-  padding: var(--space-3) var(--space-4);
-  border-bottom: 1px solid oklch(1 0 0 / 0.06);
-  vertical-align: middle;
-}
-.lb-table tbody tr {
-  background: oklch(1 0 0 / 0.02);
-  transition: background var(--transition);
-}
-.lb-table tbody tr:hover { background: oklch(1 0 0 / 0.07); }
-.lb-table tbody tr.rank-1 { background: oklch(from #c9a227 l c h / 0.15); }
-.lb-table tbody tr.rank-2 { background: oklch(from #b0b8c0 l c h / 0.08); }
-.lb-table tbody tr.rank-3 { background: oklch(from #cd7f32 l c h / 0.1); }
+    .live-pill{
+      display:inline-flex;align-items:center;gap:8px;
+      background:#2b7b47;
+      color:#eff9ef;
+      padding:8px 14px;
+      border-radius:999px;
+      font-weight:800;
+      letter-spacing:.04em;
+      box-shadow:var(--shadow);
+    }
+    .live-dot{
+      width:8px;height:8px;border-radius:50%;
+      background:#97ff83;box-shadow:0 0 12px #97ff83;
+    }
 
-.rank-medal { font-size: 1.1em; }
-.score-col { font-weight: 700; }
-.score-col.under { color: var(--green-score); }
-.score-col.over  { color: var(--red-score); }
-.score-col.even  { color: var(--text-muted); }
-.move-up   { color: var(--green-score); font-weight: 600; font-size: var(--text-xs); }
-.move-down { color: var(--red-score); font-weight: 600; font-size: var(--text-xs); }
-.move-none { color: var(--text-muted); font-size: var(--text-xs); }
-.picks-col { color: var(--text-muted); font-size: var(--text-xs); max-width: 280px; }
-.pick-tag {
-  display: inline-block;
-  padding: 1px var(--space-2);
-  border-radius: var(--radius-sm);
-  margin: 1px;
-  font-size: 0.7rem;
-  white-space: nowrap;
-}
-.pick-b1 { background: oklch(from #2d7a3a l c h / 0.3); color: #8be88e; }
-.pick-b2 { background: oklch(from #c9a227 l c h / 0.25); color: #e8d070; }
-.pick-b3 { background: oklch(from #4a9e58 l c h / 0.25); color: #90d898; }
-.pick-b4 { background: oklch(from #cd7f32 l c h / 0.25); color: #e0ab72; }
+    .topnav{
+      border-top:1px solid var(--line);
+      background:rgba(16,55,35,.7);
+      backdrop-filter:blur(8px);
+      position:sticky;
+      top:0;
+      z-index:20;
+    }
 
-/* ── DAILY HIGHLIGHTS ────────────────────────────────── */
-.highlights-list { display: flex; flex-direction: column; gap: var(--space-4); }
-.highlight-card {
-  background: var(--green-mid);
-  border: 1px solid oklch(1 0 0 / 0.1);
-  border-radius: var(--radius-lg);
-  padding: var(--space-6);
-  box-shadow: var(--shadow-card);
-}
-.hl-date {
-  font-size: var(--text-xs);
-  color: var(--gold);
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  margin-bottom: var(--space-4);
-}
-.hl-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: var(--space-4); }
-.hl-item-label { font-size: var(--text-xs); color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.07em; margin-bottom: var(--space-1); }
-.hl-item-val { font-family: var(--font-display); font-size: var(--text-lg); color: var(--cream); }
+    .tabs{
+      display:flex;flex-wrap:wrap;gap:10px;min-height:64px;align-items:center;
+    }
 
-/* ── ALL ENTRIES ─────────────────────────────────────── */
-.entries-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: var(--space-4);
-}
-.entry-card {
-  background: var(--green-mid);
-  border: 1px solid oklch(1 0 0 / 0.1);
-  border-radius: var(--radius-lg);
-  padding: var(--space-5);
-  box-shadow: var(--shadow-card);
-}
-.entry-name { font-weight: 700; font-size: var(--text-base); color: var(--cream); margin-bottom: var(--space-3); }
-.bracket-row { margin-bottom: var(--space-2); }
-.bracket-label { font-size: var(--text-xs); color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; }
-.bracket-picks { display: flex; gap: var(--space-1); flex-wrap: wrap; margin-top: var(--space-1); }
+    .tab{
+      background:none;border:none;color:var(--soft);
+      padding:18px 14px 15px;cursor:pointer;
+      border-bottom:3px solid transparent;
+      font-weight:700;font-size:1rem;
+    }
 
-/* ── WINNER PODIUM ───────────────────────────────────── */
-#podium-section { display: none; }
-#podium-section.active { display: block; }
-.podium-wrap { text-align: center; padding: var(--space-16) var(--space-4); }
-.podium-title {
-  font-family: var(--font-display);
-  font-size: var(--text-2xl);
-  color: var(--gold-light);
-  margin-bottom: var(--space-2);
-}
-.podium-subtitle { color: var(--text-muted); margin-bottom: var(--space-12); }
-.podium-places {
-  display: flex;
-  justify-content: center;
-  align-items: flex-end;
-  gap: var(--space-4);
-  flex-wrap: wrap;
-  margin-bottom: var(--space-12);
-}
-.podium-place {
-  text-align: center;
-  padding: var(--space-8) var(--space-8);
-  border-radius: var(--radius-xl);
-  min-width: 200px;
-  box-shadow: var(--shadow-card);
-}
-.podium-place.p1 { background: linear-gradient(160deg, #a87c14 0%, #c9a227 50%, #e8c457 100%); color: #1a1a1a; transform: translateY(-24px); }
-.podium-place.p2 { background: linear-gradient(160deg, #7a8490 0%, #b0b8c0 100%); color: #1a1a1a; }
-.podium-place.p3 { background: linear-gradient(160deg, #8a4c1a 0%, #cd7f32 100%); color: #1a1a1a; }
-.podium-medal { font-size: 2.5rem; margin-bottom: var(--space-2); }
-.podium-pos-name { font-family: var(--font-display); font-size: var(--text-xl); font-weight: 700; margin-bottom: var(--space-1); }
-.podium-score { font-size: var(--text-sm); font-weight: 600; margin-bottom: var(--space-2); opacity: 0.8; }
-.podium-prize { font-size: var(--text-lg); font-weight: 800; }
+    .tab.active{color:var(--gold2);border-color:var(--gold)}
 
-/* ── FOOTER ──────────────────────────────────────────── */
-footer {
-  background: var(--green-mid);
-  border-top: 1px solid oklch(1 0 0 / 0.1);
-  padding: var(--space-6) var(--space-4);
-  text-align: center;
-  font-size: var(--text-xs);
-  color: var(--text-muted);
-}
-.footer-refresh { display: inline-flex; align-items: center; gap: var(--space-2); }
-#last-updated { font-variant-numeric: tabular-nums; }
+    .main{padding:26px 0 90px}
+    .section{display:none}
+    .section.active{display:block}
 
-/* ── SKELETON ─────────────────────────────────────────── */
-@keyframes shimmer { 0%{background-position:-200% 0} 100%{background-position:200% 0} }
-.skeleton {
-  background: linear-gradient(90deg, #1a472a 25%, #2d7a3a 50%, #1a472a 75%);
-  background-size: 200% 100%;
-  animation: shimmer 1.5s ease-in-out infinite;
-  border-radius: var(--radius-sm);
-}
-.skeleton-row td { padding: var(--space-3) var(--space-4); }
-.skeleton-cell { height: 16px; border-radius: var(--radius-sm); }
+    .panel{
+      background:linear-gradient(180deg, rgba(19,69,44,.96), rgba(11,45,28,.96));
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      overflow:hidden;
+    }
 
-/* ── RESPONSIVE ──────────────────────────────────────── */
-@media (max-width: 768px) {
-  .picks-col { display: none; }
-  .entries-grid { grid-template-columns: 1fr; }
-  .movers-row { grid-template-columns: 1fr; }
-  .header-inner { flex-direction: column; text-align: center; }
-  .header-meta { align-items: center; }
-  .comp-title { text-align: center; }
-}
-@media (max-width: 480px) {
-  header { padding: var(--space-4) var(--space-3) var(--space-3); }
-  .comp-title { font-size: var(--text-lg); }
-}
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
-}
-</style>
+    .panel-head{
+      padding:18px 20px;
+      border-bottom:1px solid var(--line);
+      display:flex;justify-content:space-between;align-items:center;gap:16px;
+    }
+
+    .panel-title{margin:0;font-size:1.06rem;font-weight:800;color:var(--gold2)}
+    .panel-sub{color:var(--muted);font-size:.92rem}
+
+    .table-wrap{overflow:auto}
+    table{width:100%;border-collapse:collapse;min-width:760px}
+    th,td{padding:14px 16px;text-align:left;border-bottom:1px solid rgba(220,180,74,.12)}
+    th{
+      color:var(--soft);
+      font-size:.82rem;
+      text-transform:uppercase;
+      letter-spacing:.08em;
+      background:rgba(255,255,255,.02);
+    }
+
+    tbody tr:hover{background:rgba(255,255,255,.03)}
+
+    .rank-medal{font-weight:800;color:var(--gold2)}
+    .move-up{color:#90e6a4;font-weight:700}
+    .move-down{color:#ffab9f;font-weight:700}
+    .move-flat{color:var(--muted);font-weight:700}
+    .score-good{color:#99e49d;font-weight:700}
+    .score-even{color:var(--soft);font-weight:700}
+    .score-bad{color:#ffbaae;font-weight:700}
+
+    .cards{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+      gap:18px;
+    }
+
+    .card{
+      background:linear-gradient(180deg, rgba(24,82,52,.98), rgba(11,43,28,.96));
+      border:1px solid var(--line);
+      border-radius:18px;
+      padding:18px;
+      box-shadow:var(--shadow);
+    }
+
+    .card-kicker{
+      font-size:.78rem;
+      text-transform:uppercase;
+      letter-spacing:.08em;
+      color:var(--muted);
+      margin-bottom:8px;
+    }
+
+    .card-title{
+      margin:0 0 8px;
+      color:var(--gold2);
+      font-weight:800;
+      font-size:1.08rem;
+    }
+
+    .card-text{margin:0;color:var(--soft);line-height:1.55}
+
+    .entries-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+      gap:18px;
+    }
+
+    .entry-card{
+      background:linear-gradient(180deg, rgba(24,82,52,.98), rgba(11,43,28,.96));
+      border:1px solid var(--line);
+      border-radius:18px;
+      padding:18px;
+      box-shadow:var(--shadow);
+    }
+
+    .entry-name{
+      font-size:1.04rem;
+      font-weight:800;
+      color:var(--gold2);
+      margin-bottom:14px;
+    }
+
+    .entry-brackets{display:grid;gap:10px}
+
+    .bracket-row{
+      background:rgba(255,255,255,.03);
+      border-radius:12px;
+      padding:10px 12px;
+    }
+
+    .bracket-label{
+      font-size:.76rem;
+      text-transform:uppercase;
+      letter-spacing:.08em;
+      color:var(--muted);
+      margin-bottom:8px;
+      font-weight:700;
+    }
+
+    .bracket-picks{display:flex;flex-wrap:wrap;gap:8px}
+
+    .pick-tag{
+      display:inline-flex;
+      align-items:center;
+      padding:7px 10px;
+      border-radius:999px;
+      font-size:.88rem;
+      font-weight:700;
+      line-height:1;
+      color:#fff;
+    }
+
+    .pick-b1{background:#1e6c42}
+    .pick-b2{background:#2d7e4b}
+    .pick-b3{background:#8b6a2c}
+    .pick-b4{background:#6d4d22}
+
+    .entry-tiebreaker{
+      margin-top:12px;
+      font-size:.86rem;
+      color:var(--soft);
+    }
+
+    .search-row{padding:16px 20px 0}
+    .search-input{
+      width:100%;
+      border-radius:12px;
+      border:1px solid rgba(220,180,74,.22);
+      background:rgba(255,255,255,.04);
+      color:var(--text);
+      padding:12px 14px;
+      outline:none;
+    }
+    .search-input::placeholder{color:var(--muted)}
+
+    .footer-bar{
+      position:fixed;left:0;right:0;bottom:0;z-index:25;
+      background:rgba(20,74,47,.94);
+      border-top:1px solid var(--line);
+      backdrop-filter:blur(8px);
+    }
+
+    .footer-inner{
+      width:min(100% - 32px, var(--max));
+      margin:0 auto;
+      padding:12px 0;
+      text-align:center;
+      color:var(--soft);
+      font-size:.95rem;
+    }
+
+    .podium-overlay{
+      display:none;
+      position:fixed;inset:0;
+      background:rgba(4,18,11,.88);
+      backdrop-filter:blur(10px);
+      z-index:50;
+      padding:24px;
+      overflow:auto;
+    }
+
+    .podium-overlay.show{display:block}
+
+    .podium-wrap{
+      width:min(100%,960px);
+      margin:48px auto;
+      background:linear-gradient(180deg,#11412a,#0b2f1d);
+      border:1px solid var(--line);
+      border-radius:28px;
+      padding:32px;
+      box-shadow:var(--shadow);
+      text-align:center;
+    }
+
+    .podium-title{
+      font-family:'Cormorant Garamond',serif;
+      font-size:clamp(2rem,4vw,3rem);
+      color:var(--gold2);
+      margin:0 0 6px;
+    }
+
+    .podium-subtitle{color:var(--soft);margin-bottom:24px}
+
+    .podium-places{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+      gap:18px;
+    }
+
+    .podium-place{
+      background:rgba(255,255,255,.04);
+      border:1px solid var(--line);
+      border-radius:18px;
+      padding:20px 16px;
+    }
+
+    .podium-medal{font-size:2rem;margin-bottom:8px}
+    .podium-name{font-weight:800;color:var(--gold2);margin-bottom:6px}
+    .podium-score,.podium-prize{color:var(--soft);font-size:.96rem}
+
+    @media (max-width:800px){
+      .hero-inner{flex-direction:column;align-items:flex-start}
+      .hero-meta{align-items:flex-start;text-align:left}
+      .tabs{overflow:auto;flex-wrap:nowrap}
+      .tab{white-space:nowrap}
+    }
+  </style>
 </head>
 <body>
+  <div class="shell">
+    <header class="hero">
+      <div class="container hero-inner">
+        <div class="brand">
+          <div class="brand-mark">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <path d="M6 20V4l11 6-11 6"></path>
+              <path d="M6 4c5 1 9 5 10 10"></path>
+            </svg>
+          </div>
+          <div>
+            <h1>Masters 2026 Sweep</h1>
+            <p class="subtitle">Augusta National · April 09-12</p>
+          </div>
+        </div>
 
-<!-- HEADER -->
-<header>
-  <div class="header-inner">
-    <div class="logo-area">
-      <!-- SVG Logo: Augusta-style flag + pin -->
-      <svg class="logo-svg" width="48" height="48" viewBox="0 0 48 48" fill="none" aria-label="Masters Sweep logo">
-        <circle cx="24" cy="24" r="23" stroke="#c9a227" stroke-width="1.5"/>
-        <line x1="20" y1="8" x2="20" y2="40" stroke="#c9a227" stroke-width="2" stroke-linecap="round"/>
-        <polygon points="20,8 36,16 20,24" fill="#c9a227"/>
-        <ellipse cx="24" cy="41" rx="8" ry="2.5" fill="#2d7a3a"/>
-        <ellipse cx="24" cy="41" rx="5" ry="1.5" fill="#1a472a"/>
-      </svg>
-      <div>
-        <div class="comp-title">Masters 2026 Sweep</div>
-        <div class="comp-subtitle">Augusta National · April 09-12</div>
+        <div class="hero-meta">
+          <div class="live-pill"><span class="live-dot"></span>LIVE</div>
+          <div>Updates every 1 min · Call 0214812399 to enter</div>
+          <div id="updated-time">Updated --:--</div>
+        </div>
+      </div>
+
+      <nav class="topnav">
+        <div class="container tabs">
+          <button class="tab active" data-tab="leaderboard">🏆 Leaderboard</button>
+          <button class="tab" data-tab="movers">📈 Daily Movers</button>
+          <button class="tab" data-tab="highlights">🗒️ Highlights</button>
+          <button class="tab" data-tab="entries">📋 All Entries</button>
+        </div>
+      </nav>
+    </header>
+
+    <main class="main" id="main-content">
+      <div class="container">
+        <section id="leaderboard" class="section active">
+          <div class="panel">
+            <div class="panel-head">
+              <div>
+                <h2 class="panel-title">Leaderboard</h2>
+                <div class="panel-sub">Lowest combined score leads the sweep</div>
+              </div>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Rank</th>
+                    <th>Name</th>
+                    <th>Total</th>
+                    <th>Prev</th>
+                    <th>Move</th>
+                  </tr>
+                </thead>
+                <tbody id="leaderboard-body">
+                  <tr><td colspan="5" style="color:var(--muted)">Loading leaderboard...</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <section id="movers" class="section">
+          <div class="cards" id="movers-body"></div>
+        </section>
+
+        <section id="highlights" class="section">
+          <div class="cards" id="highlights-list"></div>
+        </section>
+
+        <section id="entries" class="section">
+          <div class="panel">
+            <div class="panel-head">
+              <div>
+                <h2 class="panel-title">All Entries</h2>
+                <div class="panel-sub">Live participant picks from the sheet</div>
+              </div>
+            </div>
+            <div class="search-row">
+              <input id="entry-search" class="search-input" type="text" placeholder="Search participant or golfer">
+            </div>
+            <div style="padding:20px">
+              <div class="entries-grid" id="entries-grid">
+                <p style="color:var(--muted)">Loading entries...</p>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <div class="footer-bar" id="footer-bar">
+      <div class="footer-inner">
+        Masters 2026 Sweep · Auto-refreshes every 1 minute · Call 021 4812399 to enter ·
+        <span style="margin-left:8px"><span id="countdown">60</span></span>
       </div>
     </div>
-    <div class="header-meta">
-      <span class="status-badge live" id="status-badge">LIVE</span>
-      <span>Updates every 1 min Call 0214812399 to Enter</span>
-      <span id="last-updated">Loading…</span>
-    </div>
+
+    <section id="podium-section" class="podium-overlay">
+      <div class="podium-wrap">
+        <div class="podium-title">🏆 Masters 2026 Sweep — Final Result</div>
+        <div class="podium-subtitle">Tournament complete · Augusta National</div>
+        <div class="podium-places" id="podium-places"></div>
+      </div>
+    </section>
   </div>
-</header>
 
-<!-- TABS -->
-<nav class="tabs" aria-label="Main navigation">
-  <div class="tabs-inner">
-    <button class="tab-btn active" data-tab="leaderboard">🏆 Leaderboard</button>
-    <button class="tab-btn" data-tab="movers">📈 Daily Movers</button>
-    <button class="tab-btn" data-tab="highlights">📅 Highlights</button>
-    <button class="tab-btn" data-tab="entries">📋 All Entries</button>
-  </div>
-</nav>
+  <script>
+    const SHEETCONFIG = {
+      leaderboardCsv:  'https://docs.google.com/spreadsheets/d/e/2PACX-1vTcK-7L1HPPhCjzjORjaxQ9DUEznolHMbCkG1e-cEXZ2v2xx_qw7DygtkfdNjO9GiSsyd5KaQaS8RU9/pub?gid=293854597&single=true&output=csv',
+      highlightsCsv:   'https://docs.google.com/spreadsheets/d/e/2PACX-1vTcK-7L1HPPhCjzjORjaxQ9DUEznolHMbCkG1e-cEXZ2v2xx_qw7DygtkfdNjO9GiSsyd5KaQaS8RU9/pub?gid=1201303996&single=true&output=csv',
+      podiumCsv:       'https://docs.google.com/spreadsheets/d/e/2PACX-1vTcK-7L1HPPhCjzjORjaxQ9DUEznolHMbCkG1e-cEXZ2v2xx_qw7DygtkfdNjO9GiSsyd5KaQaS8RU9/pub?gid=1433024356&single=true&output=csv',
+      participantsCsv: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTcK-7L1HPPhCjzjORjaxQ9DUEznolHMbCkG1e-cEXZ2v2xx_qw7DygtkfdNjO9GiSsyd5KaQaS8RU9/pub?gid=1462564797&single=true&output=csv',
+      refreshInterval: 60
+    };
 
-<main class="container">
+    let state = {
+      leaderboard: [],
+      highlights: [],
+      podium: [],
+      participants: [],
+      search: ''
+    };
 
-  <!-- LEADERBOARD TAB -->
-  <section id="leaderboard" class="section active">
-    <div class="filters">
-      <button class="filter-btn active" data-filter="all">All</button>
-      <button class="filter-btn" data-filter="top10">Top 10</button>
-      <button class="filter-btn" data-filter="movers">Movers</button>
-      <input id="search-box" type="search" placeholder="Search name…" aria-label="Search entries">
-    </div>
-    <div class="lb-table-wrap">
-      <table class="lb-table" id="lb-table">
-        <thead>
-          <tr>
-            <th>Pos</th>
-            <th>Name</th>
-            <th>Score</th>
-            <th>Mov</th>
-            <th class="picks-col">Picks</th>
-          </tr>
-        </thead>
-        <tbody id="lb-body">
-          <!-- Skeleton rows -->
-          <tr class="skeleton-row"><td><div class="skeleton skeleton-cell" style="width:24px"></div></td><td><div class="skeleton skeleton-cell" style="width:160px"></div></td><td><div class="skeleton skeleton-cell" style="width:40px"></div></td><td><div class="skeleton skeleton-cell" style="width:32px"></div></td><td class="picks-col"><div class="skeleton skeleton-cell" style="width:220px"></div></td></tr>
-          <tr class="skeleton-row"><td><div class="skeleton skeleton-cell" style="width:24px"></div></td><td><div class="skeleton skeleton-cell" style="width:140px"></div></td><td><div class="skeleton skeleton-cell" style="width:40px"></div></td><td><div class="skeleton skeleton-cell" style="width:32px"></div></td><td class="picks-col"><div class="skeleton skeleton-cell" style="width:200px"></div></td></tr>
-          <tr class="skeleton-row"><td><div class="skeleton skeleton-cell" style="width:24px"></div></td><td><div class="skeleton skeleton-cell" style="width:150px"></div></td><td><div class="skeleton skeleton-cell" style="width:40px"></div></td><td><div class="skeleton skeleton-cell" style="width:32px"></div></td><td class="picks-col"><div class="skeleton skeleton-cell" style="width:240px"></div></td></tr>
-        </tbody>
-      </table>
-    </div>
-  </section>
+    let countdownVal = SHEETCONFIG.refreshInterval;
+    let countdownTimer = null;
 
-  <!-- DAILY MOVERS TAB -->
-  <section id="movers" class="section">
-    <div class="movers-row" id="movers-cards">
-      <div class="mover-card"><div class="mover-label">🏆 Leader</div><div class="mover-name" id="mover-leader">—</div><div class="mover-score" id="mover-leader-score">—</div></div>
-      <div class="mover-card"><div class="mover-label">📈 Biggest Riser</div><div class="mover-name" id="mover-riser">—</div><div class="mover-delta" id="mover-riser-delta">—</div></div>
-      <div class="mover-card"><div class="mover-label">📉 Biggest Faller</div><div class="mover-name" id="mover-faller">—</div><div class="mover-delta" id="mover-faller-delta">—</div></div>
-    </div>
+    function splitCSVLine(line) {
+      const result = [];
+      let current = '';
+      let inQuotes = false;
 
-    <div class="lb-table-wrap">
-      <table class="lb-table" id="movers-table">
-        <thead>
-          <tr><th>Pos</th><th>Name</th><th>Score</th><th>Movement</th><th class="picks-col">Picks</th></tr>
-        </thead>
-        <tbody id="movers-body"></tbody>
-      </table>
-    </div>
-  </section>
+      for (let i = 0; i < line.length; i++) {
+        const char = line[i];
+        const next = line[i + 1];
 
-  <!-- HIGHLIGHTS TAB -->
-  <section id="highlights" class="section">
-    <div class="highlights-list" id="highlights-list">
-      <p style="color:var(--text-muted);padding:var(--space-8) 0;">Highlights will appear here each evening during the tournament.</p>
-    </div>
-  </section>
+        if (char === '"' && inQuotes && next === '"') {
+          current += '"';
+          i++;
+        } else if (char === '"') {
+          inQuotes = !inQuotes;
+        } else if (char === ',' && !inQuotes) {
+          result.push(current);
+          current = '';
+        } else {
+          current += char;
+        }
+      }
 
-  <!-- ALL ENTRIES TAB -->
-  <section id="entries" class="section">
-    <div class="entries-grid" id="entries-grid">
-      <p style="color:var(--text-muted);padding:var(--space-8) 0;">Loading entries…</p>
-    </div>
-  </section>
-
-</main>
-
-<!-- WINNER PODIUM (overlays everything when tournament complete) -->
-<div id="podium-section">
-  <div class="podium-wrap container">
-    <div class="podium-title">🏆 Masters 2026 Sweep — Final Result</div>
-    <div class="podium-subtitle">Tournament complete · Augusta National</div>
-    <div class="podium-places" id="podium-places"></div>
-  </div>
-</div>
-
-<footer>
-  <div class="footer-refresh">
-    <span>Masters 2026 Sweep · Auto-refreshes every 1 minute  Call 021 4812399 to enter·</span>
-    <span id="refresh-countdown">2:00</span>
-  </div>
-</footer>
-
-<script>
-// ─────────────────────────────────────────────────────────────
-//  CONFIGURATION — paste your Google Sheet CSV URLs here
-// ─────────────────────────────────────────────────────────────
-const SHEET_CONFIG = {
-  leaderboardCsv:  'https://docs.google.com/spreadsheets/d/e/2PACX-1vTcK-7L1HPPhCjzjORjaxQ9DUEznolHMbCkG1e-cEXZ2v2xx_qw7DygtkfdNjO9GiSsyd5KaQaS8RU9/pub?gid=293854597&single=true&output=csv',   // e.g. https://docs.google.com/spreadsheets/d/XXXX/pub?gid=XXXX&single=true&output=csv
-  highlightsCsv:   'https://docs.google.com/spreadsheets/d/e/2PACX-1vTcK-7L1HPPhCjzjORjaxQ9DUEznolHMbCkG1e-cEXZ2v2xx_qw7DygtkfdNjO9GiSsyd5KaQaS8RU9/pub?gid=1201303996&single=true&output=csv',   // Daily Highlights tab CSV URL
-  podiumCsv:       'https://docs.google.com/spreadsheets/d/e/2PACX-1vTcK-7L1HPPhCjzjORjaxQ9DUEznolHMbCkG1e-cEXZ2v2xx_qw7DygtkfdNjO9GiSsyd5KaQaS8RU9/pub?gid=1433024356&single=true&output=csv',   // Winner Podium tab CSV URL
-  refreshInterval: 60,  // seconds between auto-refresh
-  demoMode:        false, // set to false once CSV URLs are connected
-};
-
-// ─────────────────────────────────────────────────────────────
-//  DEMO DATA (shown when demoMode: true)
-// ─────────────────────────────────────────────────────────────
-const DEMO = {
-  leaderboard: [
-    { rank:1, name:'James Morrison',    score:-14, move:'▲2',  picks:['Scheffler','McIlroy','Morikawa','Im','Fowler','Day','Mickelson','Tiger Woods'] },
-    { rank:2, name:'Sarah Campbell',    score:-11, move:'▲5',  picks:['McIlroy','Aberg','Koepka','Burns','Lowry','Hatton','Dustin Johnson','Bubba Watson'] },
-    { rank:3, name:'Dougie Reid',       score:-9,  move:'▼1',  picks:['Scheffler','Thomas','Spieth','Fitzpatrick','Jason Day','Rickie Fowler','Phil Mickelson','Tiger Woods'] },
-    { rank:4, name:'Fiona MacLeod',     score:-8,  move:'—',   picks:['Hovland','Cantlay','Im','Burns','Fleetwood','Hatton','Dustin Johnson','Bubba'] },
-    { rank:5, name:'Craig Sutherland',  score:-7,  move:'▲1',  picks:['Morikawa','Schauffele','Thomas','Kim','Lowry','Harman','Woods','Mickelson'] },
-    { rank:6, name:'Alison Grant',      score:-6,  move:'▼3',  picks:['McIlroy','Fleetwood','Rahm','Spieth','Fowler','Day','Couples','Sandy Lyle'] },
-    { rank:7, name:'Barry Henderson',   score:-5,  move:'▲2',  picks:['Aberg','Cantlay','Koepka','Niemann','Harman','Davis','Phil Mickelson','Tiger Woods'] },
-    { rank:8, name:'Karen Thomson',     score:-4,  move:'▼1',  picks:['Scheffler','Hovland','Burns','Bhatia','Rickie Fowler','McCarthy','Vijay Singh','Fuzzy'] },
-    { rank:9, name:'Paul Williamson',   score:-3,  move:'—',   picks:['Schauffele','Thomas','Spieth','Niemann','Jason Day','Hatton','Dustin Johnson','Bubba'] },
-    { rank:10, name:'Morag Sinclair',   score:-2,  move:'▲3',  picks:['Rahm','Cantlay','Im','Burns','Lowry','Fowler','Mickelson','Fred Couples'] },
-    { rank:11, name:'Neil Patterson',   score:-1,  move:'▼2',  picks:['McIlroy','Fleetwood','Fitzpatrick','Kim','Harman','Theegala','Tiger Woods','Sandy Lyle'] },
-    { rank:12, name:'Elaine Douglas',   score:0,   move:'▲1',  picks:['Morikawa','Schauffele','Koepka','Bhatia','Day','Rai','Phil Mickelson','Nick Faldo'] },
-    { rank:13, name:'Tom Mackenzie',    score:1,   move:'▼4',  picks:['Scheffler','Hovland','Spieth','Thomas','Rickie Fowler','Harman','Vijay Singh','Larry Mize'] },
-    { rank:14, name:'Lynn Anderson',    score:2,   move:'—',   picks:['Aberg','Cantlay','Burns','Im','McCarthy','Davis','Dustin Johnson','Fuzzy Zoeller'] },
-    { rank:15, name:'Robbie Stewart',   score:3,   move:'▲1',  picks:['Rahm','Fleetwood','Niemann','Koepka','Lowry','Day','Tiger Woods','Bubba Watson'] },
-  ],
-  highlights: [
-    { date:'Thu 10 Apr', round:'Round 1', leader:'James Morrison', leaderScore:'-5', riser:'Sarah Campbell (▲6)', faller:'Tom Mackenzie (▼5)' },
-    { date:'Fri 11 Apr', round:'Round 2', leader:'James Morrison', leaderScore:'-9', riser:'Alison Grant (▲4)', faller:'Elaine Douglas (▼3)' },
-    { date:'Sat 12 Apr', round:'Round 3', leader:'James Morrison', leaderScore:'-12', riser:'Sarah Campbell (▲3)', faller:'Craig Sutherland (▼4)' },
-  ],
-  status: 'ACTIVE',
-};
-
-// ─────────────────────────────────────────────────────────────
-//  STATE
-// ─────────────────────────────────────────────────────────────
-let state = {
-  leaderboard: [],
-  highlights: [],
-  podium: [],
-  status: 'ACTIVE',
-  activeTab: 'leaderboard',
-  filter: 'all',
-  search: '',
-};
-let refreshTimer;
-let countdownVal;
-
-// ─────────────────────────────────────────────────────────────
-//  CSV PARSER
-// ─────────────────────────────────────────────────────────────
-function parseCSV(text) {
-  const lines = text.trim().split('\n');
-  if (lines.length < 2) return [];
-  const headers = lines[0].split(',').map(h => h.replace(/"/g,'').trim());
-  return lines.slice(1).map(line => {
-    const vals = line.match(/(".*?"|[^,]+|(?<=,)(?=,)|^(?=,)|(?<=,)$)/g) || line.split(',');
-    const row = {};
-    headers.forEach((h, i) => {
-      row[h] = (vals[i] || '').replace(/"/g,'').trim();
-    });
-    return row;
-  });
-}
-
-// ─────────────────────────────────────────────────────────────
-//  DATA LOADING
-// ─────────────────────────────────────────────────────────────
-async function loadData() {
-  if (SHEET_CONFIG.demoMode) {
-    loadDemoData();
-    return;
-  }
-
-  try {
-    const [lbResp, hlResp, podResp] = await Promise.allSettled([
-      SHEET_CONFIG.leaderboardCsv ? fetch(SHEET_CONFIG.leaderboardCsv + '&t=' + Date.now()) : Promise.reject('no url'),
-      SHEET_CONFIG.highlightsCsv  ? fetch(SHEET_CONFIG.highlightsCsv  + '&t=' + Date.now()) : Promise.reject('no url'),
-      SHEET_CONFIG.podiumCsv      ? fetch(SHEET_CONFIG.podiumCsv      + '&t=' + Date.now()) : Promise.reject('no url'),
-    ]);
-
-    if (lbResp.status === 'fulfilled') {
-      const csv = await lbResp.value.text();
-      const rows = parseCSV(csv);
-      state.leaderboard = rows.map(r => ({
-        rank:  Number(r.Rank) || 0,
-        name:  r.Name || '',
-        score: Number(r.TotalScore) || 0,
-        move:  r.Move || '—',
-        picks: [r.B1Pick1, r.B1Pick2, r.B2Pick1, r.B2Pick2, r.B3Pick1, r.B3Pick2, r.B4Pick1, r.B4Pick2],
-      })).filter(r => r.name);
+      result.push(current);
+      return result.map(v => v.trim());
     }
 
-    if (hlResp.status === 'fulfilled') {
-      const csv = await hlResp.value.text();
-      const rows = parseCSV(csv);
-      state.highlights = rows.map(r => ({
-        date:        r.Date        || '',
-        round:       r.Round       || '',
-        leader:      r.Leader      || '',
-        leaderScore: r.LeaderScore || '',
-        riser:       r.BiggestRiser  || '',
-        faller:      r.BiggestFaller || '',
-      })).filter(r => r.date);
+    function parseCSV(csv) {
+      const clean = (csv || '').trim();
+      if (!clean) return [];
+      const lines = clean.split(/\r?\n/);
+      if (!lines.length) return [];
+      const headers = splitCSVLine(lines[0]);
+
+      return lines.slice(1).map(line => {
+        const values = splitCSVLine(line);
+        const row = {};
+        headers.forEach((header, i) => row[header] = values[i] ?? '');
+        return row;
+      });
     }
 
-    if (podResp.status === 'fulfilled') {
-      const csv = await podResp.value.text();
-      const rows = parseCSV(csv);
-      if (rows.length > 0 && rows[0].Name) {
-        state.podium = rows;
-        state.status = 'COMPLETE';
+    function formatScore(val) {
+      const n = Number(val || 0);
+      if (n < 0) return `${n}`;
+      if (n === 0) return 'E';
+      return `+${n}`;
+    }
+
+    function scoreClass(score) {
+      const n = Number(score || 0);
+      if (n < 0) return 'score-good';
+      if (n > 0) return 'score-bad';
+      return 'score-even';
+    }
+
+    function moveClass(move) {
+      if (!move) return 'move-flat';
+      if (String(move).startsWith('▲')) return 'move-up';
+      if (String(move).startsWith('▼')) return 'move-down';
+      return 'move-flat';
+    }
+
+    async function loadData() {
+      try {
+        const stamp = Date.now();
+
+        const [lbResp, hlResp, podResp, partResp] = await Promise.allSettled([
+          fetch(`${SHEETCONFIG.leaderboardCsv}&t=${stamp}`),
+          fetch(`${SHEETCONFIG.highlightsCsv}&t=${stamp}`),
+          fetch(`${SHEETCONFIG.podiumCsv}&t=${stamp}`),
+          fetch(`${SHEETCONFIG.participantsCsv}&t=${stamp}`)
+        ]);
+
+        if (lbResp.status === 'fulfilled') {
+          const rows = parseCSV(await lbResp.value.text());
+          state.leaderboard = rows.map(r => ({
+            rank: Number(r.Rank || 0),
+            name: r.Name || '',
+            totalScore: Number(r.TotalScore || 0),
+            prev: r.Prev || '',
+            move: r.Move || ''
+          })).filter(r => r.name);
+        }
+
+        if (hlResp.status === 'fulfilled') {
+          const rows = parseCSV(await hlResp.value.text());
+          state.highlights = rows.map(r => ({
+            date: r.Date || '',
+            round: r.Round || '',
+            leader: r.Leader || '',
+            leaderScore: r.LeaderScore || '',
+            biggestRiser: r.BiggestRiser || '',
+            biggestFaller: r.BiggestFaller || ''
+          })).filter(r => r.date || r.leader || r.biggestRiser || r.biggestFaller);
+        }
+
+        if (podResp.status === 'fulfilled') {
+          const rows = parseCSV(await podResp.value.text());
+          state.podium = rows.map(r => ({
+            position: r.Position || '',
+            name: r.Name || '',
+            score: r.Score || '',
+            prize: r.Prize || ''
+          })).filter(r => r.name);
+        }
+
+        if (partResp.status === 'fulfilled') {
+          const rows = parseCSV(await partResp.value.text());
+          state.participants = rows.map(r => ({
+            name: r.Name || '',
+            picks: [
+              r.B1Pick1 || '',
+              r.B1Pick2 || '',
+              r.B2Pick1 || '',
+              r.B2Pick2 || '',
+              r.B3Pick1 || '',
+              r.B3Pick2 || '',
+              r.B4Pick1 || '',
+              r.B4Pick2 || ''
+            ],
+            tieBreaker: r.TieBreaker || ''
+          })).filter(r => r.name);
+        }
+
+        renderLeaderboard();
+        renderMovers();
+        renderHighlights();
+        renderEntries();
+        renderPodium();
+
+        const updatedEl = document.getElementById('updated-time');
+        updatedEl.textContent = `Updated ${new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'})}`;
+
+        countdownVal = SHEETCONFIG.refreshInterval;
+        updateCountdown();
+      } catch (e) {
+        console.error(e);
       }
     }
 
-  } catch(e) {
-    console.warn('Data load error:', e);
-  }
+    function renderLeaderboard() {
+      const body = document.getElementById('leaderboard-body');
+      if (!state.leaderboard.length) {
+        body.innerHTML = '<tr><td colspan="5" style="color:var(--muted)">No leaderboard data yet.</td></tr>';
+        return;
+      }
 
-  renderAll();
-  updateTimestamp();
-}
-
-function loadDemoData() {
-  state.leaderboard = DEMO.leaderboard;
-  state.highlights  = DEMO.highlights;
-  state.status      = DEMO.status;
-  renderAll();
-  updateTimestamp();
-}
-
-// ─────────────────────────────────────────────────────────────
-//  RENDER
-// ─────────────────────────────────────────────────────────────
-function renderAll() {
-  renderLeaderboard();
-  renderMovers();
-  renderHighlights();
-  renderEntries();
-  if (state.status === 'COMPLETE') renderPodium();
-}
-
-function scoreClass(score) {
-  if (score < 0) return 'under';
-  if (score > 0) return 'over';
-  return 'even';
-}
-function fmtScore(score) {
-  if (score < 0) return score.toString();
-  if (score > 0) return '+' + score;
-  return 'E';
-}
-function rankMedal(rank) {
-  if (rank === 1) return '🥇';
-  if (rank === 2) return '🥈';
-  if (rank === 3) return '🥉';
-  return rank + '.';
-}
-function moveClass(move) {
-  const s = (move || '').toString();
-  if (s.includes('▲')) return 'move-up';
-  if (s.includes('▼')) return 'move-down';
-  return 'move-none';
-}
-
-function renderLeaderboard() {
-  const body = document.getElementById('lb-body');
-  let rows = [...state.leaderboard];
-
-  if (state.filter === 'top10') rows = rows.slice(0, 10);
-  if (state.filter === 'movers') rows = rows.filter(r => r.move && r.move !== '—' && r.move !== '');
-  if (state.search) {
-    const q = state.search.toLowerCase();
-    rows = rows.filter(r => r.name.toLowerCase().includes(q));
-  }
-
-  if (rows.length === 0) {
-    body.innerHTML = '<tr><td colspan="5" style="text-align:center;padding:3rem;color:var(--text-muted)">No results</td></tr>';
-    return;
-  }
-
-  body.innerHTML = rows.map(r => {
-    const rankClass = r.rank <= 3 ? ` class="rank-${r.rank}"` : '';
-    const picks = (r.picks || []).filter(Boolean);
-    const pickTags = picks.map((p, i) => {
-      const b = i < 2 ? 'b1' : i < 4 ? 'b2' : i < 6 ? 'b3' : 'b4';
-      return `<span class="pick-tag pick-${b}">${p}</span>`;
-    }).join('');
-    return `<tr${rankClass}>
-      <td><span class="rank-medal">${rankMedal(r.rank)}</span></td>
-      <td style="font-weight:600">${r.name}</td>
-      <td class="score-col ${scoreClass(r.score)}">${fmtScore(r.score)}</td>
-      <td class="${moveClass(r.move)}">${r.move || '—'}</td>
-      <td class="picks-col">${pickTags}</td>
-    </tr>`;
-  }).join('');
-}
-
-function renderMovers() {
-  const lb = state.leaderboard;
-  if (!lb.length) return;
-
-  const leader = lb[0];
-  document.getElementById('mover-leader').textContent = leader.name;
-  const ls = document.getElementById('mover-leader-score');
-  ls.textContent = fmtScore(leader.score);
-  ls.className = 'mover-score ' + scoreClass(leader.score);
-
-  let bigRiser  = { name: '—', move: 0, delta: '—' };
-  let bigFaller = { name: '—', move: 0, delta: '—' };
-  lb.forEach(r => {
-    const s = (r.move || '').toString();
-    if (s.startsWith('▲')) {
-      const n = parseInt(s.replace('▲', ''));
-      if (n > bigRiser.move) bigRiser = { name: r.name, move: n, delta: '▲' + n + ' places' };
+      body.innerHTML = state.leaderboard.map(r => `
+        <tr>
+          <td class="rank-medal">${r.rank === 1 ? '🥇 1' : r.rank === 2 ? '🥈 2' : r.rank === 3 ? '🥉 3' : r.rank}</td>
+          <td>${r.name}</td>
+          <td class="${scoreClass(r.totalScore)}">${formatScore(r.totalScore)}</td>
+          <td>${r.prev || '—'}</td>
+          <td class="${moveClass(r.move)}">${r.move || '–'}</td>
+        </tr>
+      `).join('');
     }
-    if (s.startsWith('▼')) {
-      const n = parseInt(s.replace('▼', ''));
-      if (n > bigFaller.move) bigFaller = { name: r.name, move: n, delta: '▼' + n + ' places' };
-    }
-  });
 
-  document.getElementById('mover-riser').textContent = bigRiser.name;
-  document.getElementById('mover-riser-delta').textContent = bigRiser.delta;
-  document.getElementById('mover-faller').textContent = bigFaller.name;
-  document.getElementById('mover-faller-delta').textContent = bigFaller.delta;
+    function renderMovers() {
+      const el = document.getElementById('movers-body');
+      if (!state.leaderboard.length) {
+        el.innerHTML = `<div class="card"><div class="card-kicker">Daily movers</div><h3 class="card-title">No movement yet</h3><p class="card-text">Movement will appear once rankings change.</p></div>`;
+        return;
+      }
 
-  // Movers table — all who have moved
-  const moversBody = document.getElementById('movers-body');
-  const movers = lb.filter(r => r.move && r.move !== '—' && r.move !== '');
-  if (!movers.length) {
-    moversBody.innerHTML = '<tr><td colspan="5" style="text-align:center;padding:2rem;color:var(--text-muted)">Movement data available after the first snapshot</td></tr>';
-    return;
-  }
-  moversBody.innerHTML = movers.map(r => {
-    const picks = (r.picks || []).filter(Boolean);
-    const pickTags = picks.map((p, i) => {
-      const b = i < 2 ? 'b1' : i < 4 ? 'b2' : i < 6 ? 'b3' : 'b4';
-      return `<span class="pick-tag pick-${b}">${p}</span>`;
-    }).join('');
-    return `<tr>
-      <td>${rankMedal(r.rank)}</td>
-      <td style="font-weight:600">${r.name}</td>
-      <td class="score-col ${scoreClass(r.score)}">${fmtScore(r.score)}</td>
-      <td class="${moveClass(r.move)}" style="font-weight:700;font-size:var(--text-base)">${r.move}</td>
-      <td class="picks-col">${pickTags}</td>
-    </tr>`;
-  }).join('');
-}
+      const ups = state.leaderboard.filter(r => String(r.move).startsWith('▲')).sort((a,b) => parseInt(b.move.slice(1)) - parseInt(a.move.slice(1)));
+      const downs = state.leaderboard.filter(r => String(r.move).startsWith('▼')).sort((a,b) => parseInt(b.move.slice(1)) - parseInt(a.move.slice(1)));
+      const leader = state.leaderboard[0];
 
-function renderHighlights() {
-  const list = document.getElementById('highlights-list');
-  if (!state.highlights.length) return;
-
-  list.innerHTML = [...state.highlights].reverse().map(h => `
-    <div class="highlight-card">
-      <div class="hl-date">${h.round} · ${h.date}</div>
-      <div class="hl-grid">
-        <div><div class="hl-item-label">🏆 Leader</div><div class="hl-item-val">${h.leader}</div><div style="font-size:var(--text-sm);color:var(--${h.leaderScore && h.leaderScore.startsWith('-') ? 'green-score' : 'red-score'})">${h.leaderScore}</div></div>
-        <div><div class="hl-item-label">📈 Biggest Riser</div><div class="hl-item-val" style="font-size:var(--text-base)">${h.riser || '—'}</div></div>
-        <div><div class="hl-item-label">📉 Biggest Faller</div><div class="hl-item-val" style="font-size:var(--text-base)">${h.faller || '—'}</div></div>
-      </div>
-    </div>
-  `).join('');
-}
-
-function renderEntries() {
-  const grid = document.getElementById('entries-grid');
-  const lb = state.leaderboard;
-  if (!lb.length) return;
-
-  const bracketLabels = ['Bracket 1 (Fav)', 'Bracket 2 (Mid)', 'Bracket 3 (Out)', 'Bracket 4 (Big)'];
-  const bracketClasses = ['b1', 'b2', 'b3', 'b4'];
-
-  grid.innerHTML = lb.map(r => {
-    const picks = r.picks || [];
-    const bracketRows = [0,1,2,3].map(bi => {
-      const p1 = picks[bi*2]     || '';
-      const p2 = picks[bi*2 + 1] || '';
-      if (!p1 && !p2) return '';
-      return `<div class="bracket-row">
-        <div class="bracket-label">${bracketLabels[bi]}</div>
-        <div class="bracket-picks">
-          ${p1 ? `<span class="pick-tag pick-${bracketClasses[bi]}">${p1}</span>` : ''}
-          ${p2 ? `<span class="pick-tag pick-${bracketClasses[bi]}">${p2}</span>` : ''}
+      el.innerHTML = `
+        <div class="card">
+          <div class="card-kicker">Leader</div>
+          <h3 class="card-title">${leader ? leader.name : '—'}</h3>
+          <p class="card-text">${leader ? `${formatScore(leader.totalScore)} total` : ''}</p>
         </div>
-      </div>`;
-    }).filter(Boolean).join('');
+        <div class="card">
+          <div class="card-kicker">Biggest riser</div>
+          <h3 class="card-title">${ups[0] ? ups[0].name : 'None yet'}</h3>
+          <p class="card-text">${ups[0] ? ups[0].move : 'No upward movement yet.'}</p>
+        </div>
+        <div class="card">
+          <div class="card-kicker">Biggest faller</div>
+          <h3 class="card-title">${downs[0] ? downs[0].name : 'None yet'}</h3>
+          <p class="card-text">${downs[0] ? downs[0].move : 'No downward movement yet.'}</p>
+        </div>
+      `;
+    }
 
-    return `<div class="entry-card">
-      <div class="entry-name">${rankMedal(r.rank)} ${r.name} <span style="color:var(--text-muted);font-weight:400;font-size:var(--text-sm)">${fmtScore(r.score)}</span></div>
-      ${bracketRows}
-    </div>`;
-  }).join('');
-}
+    function renderHighlights() {
+      const el = document.getElementById('highlights-list');
+      if (!state.highlights.length) {
+        el.innerHTML = `<div class="card"><div class="card-kicker">Highlights</div><h3 class="card-title">No highlights yet</h3><p class="card-text">Highlights will appear during the tournament.</p></div>`;
+        return;
+      }
 
-function renderPodium() {
-  document.querySelector('main').style.display = 'none';
-  document.querySelector('nav.tabs').style.display = 'none';
-  const podSection = document.getElementById('podium-section');
-  podSection.style.display = 'block';
+      el.innerHTML = state.highlights.slice().reverse().map(h => `
+        <div class="card">
+          <div class="card-kicker">${h.date || 'Update'} ${h.round ? `· ${h.round}` : ''}</div>
+          <h3 class="card-title">${h.leader || 'Leaderboard update'} ${h.leaderScore ? `(${h.leaderScore})` : ''}</h3>
+          <p class="card-text">
+            ${h.biggestRiser ? `📈 ${h.biggestRiser}` : ''}
+            ${h.biggestRiser && h.biggestFaller ? '<br>' : ''}
+            ${h.biggestFaller ? `📉 ${h.biggestFaller}` : ''}
+          </p>
+        </div>
+      `).join('');
+    }
 
-  const lb = state.leaderboard;
-  const medals = ['🥇', '🥈', '🥉'];
-  const classes = ['p1', 'p2', 'p3'];
-  const labels  = ['WINNER', 'Runner Up', 'Third Place'];
-  const prizes  = ['50% of prize pool', '30% of prize pool', '20% of prize pool'];
+    function renderEntries() {
+      const grid = document.getElementById('entries-grid');
+      const entries = state.participants || [];
 
-  document.getElementById('podium-places').innerHTML = lb.slice(0, 3).map((r, i) => `
-    <div class="podium-place ${classes[i]}">
-      <div class="podium-medal">${medals[i]}</div>
-      <div style="font-size:var(--text-xs);font-weight:700;letter-spacing:0.1em;text-transform:uppercase;opacity:0.7;margin-bottom:var(--space-2)">${labels[i]}</div>
-      <div class="podium-pos-name">${r.name}</div>
-      <div class="podium-score">Final: ${fmtScore(r.score)}</div>
-    </div>
-  `).join('');
+      if (!entries.length) {
+        grid.innerHTML = '<p style="color:var(--muted)">No participant entries available yet.</p>';
+        return;
+      }
 
-  document.getElementById('status-badge').textContent = 'COMPLETE';
-  document.getElementById('status-badge').classList.remove('live');
-  document.getElementById('status-badge').style.background = 'var(--gold)';
-  document.getElementById('status-badge').style.color = 'var(--green-deep)';
-}
+      const term = state.search.toLowerCase().trim();
 
-// ─────────────────────────────────────────────────────────────
-//  TIMESTAMP + COUNTDOWN
-// ─────────────────────────────────────────────────────────────
-function updateTimestamp() {
-  const el = document.getElementById('last-updated');
-  const now = new Date();
-  el.textContent = 'Updated ' + now.toLocaleTimeString('en-GB', { hour:'2-digit', minute:'2-digit' });
-}
+      const filtered = entries.filter(e => {
+        if (!term) return true;
+        return e.name.toLowerCase().includes(term) || e.picks.some(p => p.toLowerCase().includes(term));
+      });
 
-function startCountdown() {
-  countdownVal = SHEET_CONFIG.refreshInterval;
-  clearInterval(refreshTimer);
-  refreshTimer = setInterval(() => {
-    countdownVal--;
-    const m = Math.floor(countdownVal / 60);
-    const s = countdownVal % 60;
-    document.getElementById('refresh-countdown').textContent =
-      m + ':' + String(s).padStart(2, '0');
-    if (countdownVal <= 0) {
+      const labels = ['Bracket 1','Bracket 2','Bracket 3','Bracket 4'];
+      const classes = ['b1','b2','b3','b4'];
+
+      grid.innerHTML = filtered.map((entry, idx) => {
+        const rows = [0,1,2,3].map(bi => {
+          const p1 = entry.picks[bi * 2] || '';
+          const p2 = entry.picks[bi * 2 + 1] || '';
+          if (!p1 && !p2) return '';
+          return `
+            <div class="bracket-row">
+              <div class="bracket-label">${labels[bi]}</div>
+              <div class="bracket-picks">
+                ${p1 ? `<span class="pick-tag pick-${classes[bi]}">${p1}</span>` : ''}
+                ${p2 ? `<span class="pick-tag pick-${classes[bi]}">${p2}</span>` : ''}
+              </div>
+            </div>
+          `;
+        }).join('');
+
+        return `
+          <article class="entry-card">
+            <div class="entry-name">${idx + 1}. ${entry.name}</div>
+            <div class="entry-brackets">${rows}</div>
+            ${entry.tieBreaker ? `<div class="entry-tiebreaker">Tie-breaker: ${entry.tieBreaker}</div>` : ''}
+          </article>
+        `;
+      }).join('');
+    }
+
+    function renderPodium() {
+      const overlay = document.getElementById('podium-section');
+      const places = document.getElementById('podium-places');
+      const footer = document.getElementById('footer-bar');
+      const main = document.getElementById('main-content');
+
+      const winners = state.podium || [];
+      const board = state.leaderboard || [];
+      const lastPlace = board.length ? board[board.length - 1] : null;
+
+      if (!winners.length) {
+        overlay.classList.remove('show');
+        footer.style.display = '';
+        main.style.display = '';
+        places.innerHTML = '';
+        return;
+      }
+
+      let html = winners.slice(0,3).map((p, i) => `
+        <div class="podium-place">
+          <div class="podium-medal">${i === 0 ? '🥇' : i === 1 ? '🥈' : '🥉'}</div>
+          <div class="podium-name">${p.name}</div>
+          <div class="podium-score">${p.score || ''}</div>
+          <div class="podium-prize">${p.prize || ''}</div>
+        </div>
+      `).join('');
+
+      if (lastPlace) {
+        html += `
+          <div class="podium-place">
+            <div class="podium-medal">🥄</div>
+            <div class="podium-name">${lastPlace.name}</div>
+            <div class="podium-score">${formatScore(lastPlace.totalScore)}</div>
+            <div class="podium-prize">Last Place</div>
+          </div>
+        `;
+      }
+
+      places.innerHTML = html;
+      overlay.classList.add('show');
+      footer.style.display = 'none';
+      main.style.display = 'none';
+    }
+
+    function updateCountdown() {
+      document.getElementById('countdown').textContent = countdownVal;
+    }
+
+    function startCountdown() {
+      if (countdownTimer) clearInterval(countdownTimer);
+      countdownVal = SHEETCONFIG.refreshInterval;
+      updateCountdown();
+
+      countdownTimer = setInterval(() => {
+        countdownVal -= 1;
+        if (countdownVal <= 0) {
+          loadData();
+          countdownVal = SHEETCONFIG.refreshInterval;
+        }
+        updateCountdown();
+      }, 1000);
+    }
+
+    document.querySelectorAll('.tab').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.tab').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+        btn.classList.add('active');
+        document.getElementById(btn.dataset.tab).classList.add('active');
+      });
+    });
+
+    document.getElementById('entry-search').addEventListener('input', e => {
+      state.search = e.target.value || '';
+      renderEntries();
+    });
+
+    document.addEventListener('DOMContentLoaded', () => {
       loadData();
       startCountdown();
-    }
-  }, 1000);
-}
-
-// ─────────────────────────────────────────────────────────────
-//  TABS, FILTERS, SEARCH
-// ─────────────────────────────────────────────────────────────
-document.querySelectorAll('.tab-btn').forEach(btn => {
-  btn.addEventListener('click', () => {
-    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-    btn.classList.add('active');
-    const tab = btn.dataset.tab;
-    state.activeTab = tab;
-    document.getElementById(tab).classList.add('active');
-  });
-});
-
-document.querySelectorAll('.filter-btn').forEach(btn => {
-  btn.addEventListener('click', () => {
-    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    state.filter = btn.dataset.filter;
-    renderLeaderboard();
-  });
-});
-
-document.getElementById('search-box').addEventListener('input', e => {
-  state.search = e.target.value;
-  renderLeaderboard();
-});
-
-// ─────────────────────────────────────────────────────────────
-//  INIT
-// ─────────────────────────────────────────────────────────────
-loadData();
-startCountdown();
-</script>
+    });
+  </script>
 </body>
 </html>
