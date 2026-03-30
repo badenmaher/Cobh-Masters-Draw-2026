@@ -6,16 +6,22 @@
   <title>Masters 2026 Brackets</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     :root{
-      --bg:#082a1a;
+      --bg:#072b1b;
+      --bg2:#0d3b26;
       --panel:#123f29;
-      --line:rgba(220,180,74,.2);
-      --gold:#f2d57b;
-      --soft:#d6c9a0;
-      --muted:#afbaa6;
-      --text:#f5eed4;
+      --panel2:#0f3522;
+      --line:rgba(220,180,74,.22);
+      --gold:#dcb44a;
+      --gold2:#f2d57b;
+      --text:#f6eed4;
+      --soft:#d4c79d;
+      --muted:#aebba4;
+      --shadow:0 18px 40px rgba(0,0,0,.28);
+      --radius:18px;
+      --max:1240px;
     }
 
     *{box-sizing:border-box}
@@ -23,111 +29,153 @@
       margin:0;
       font-family:'Inter',sans-serif;
       background:
-        radial-gradient(circle at top, rgba(61,131,84,.2), transparent 35%),
+        radial-gradient(circle at top, rgba(61,131,84,.22), transparent 35%),
         linear-gradient(180deg,#082c1b 0%,#061f13 100%);
       color:var(--text);
+      min-height:100vh;
     }
 
-    .wrap{
-      width:min(100% - 32px, 1180px);
+    .container{
+      width:min(100% - 32px,var(--max));
       margin:0 auto;
-      padding:28px 0 40px;
     }
 
     .hero{
+      border-bottom:1px solid var(--line);
+      background:
+        radial-gradient(circle at center, rgba(53,136,78,.24), transparent 42%),
+        linear-gradient(180deg, rgba(10,55,31,.98), rgba(12,58,37,.92));
+    }
+
+    .hero-inner{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:24px;
+      padding:28px 0 22px;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:16px;
+    }
+
+    .brand-mark{
+      width:46px;
+      height:46px;
+      border-radius:50%;
+      border:2px solid var(--gold);
+      display:grid;
+      place-items:center;
+      color:var(--gold);
+    }
+
+    .brand-mark svg{width:24px;height:24px}
+
+    h1{
+      margin:0;
+      font-family:'Cormorant Garamond',serif;
+      font-size:clamp(2rem,4vw,3.2rem);
+      line-height:1;
+      color:var(--gold2);
+    }
+
+    .subtitle{
+      margin:6px 0 0;
+      color:var(--soft);
+      font-size:1.06rem;
+    }
+
+    .hero-links{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      justify-content:flex-end;
+    }
+
+    .hero-link{
+      display:inline-flex;
+      align-items:center;
+      padding:10px 14px;
+      border:1px solid rgba(220,180,74,.22);
+      border-radius:999px;
+      color:var(--gold2);
+      font-weight:700;
+      font-size:.92rem;
+      text-decoration:none;
+      white-space:nowrap;
+    }
+
+    .main{
+      padding:28px 0 40px;
+    }
+
+    .page-head{
       display:flex;
       justify-content:space-between;
       align-items:flex-end;
       gap:20px;
-      margin-bottom:24px;
+      margin-bottom:22px;
     }
 
-    h1{
-      margin:0 0 6px;
-      font-family:'Cormorant Garamond',serif;
-      color:var(--gold);
-      font-size:clamp(2rem,4vw,3rem);
-      line-height:1;
+    .page-title{
+      margin:0;
+      font-size:1.2rem;
+      color:var(--gold2);
+      font-weight:800;
     }
 
-    .sub{
+    .page-copy{
+      margin:6px 0 0;
+      color:var(--muted);
+      font-size:.96rem;
+    }
+
+    .updated{
       color:var(--soft);
-      font-size:1rem;
-    }
-
-    .back{
-      color:var(--gold);
-      text-decoration:none;
-      font-weight:700;
-      border:1px solid rgba(220,180,74,.25);
-      padding:10px 14px;
-      border-radius:999px;
+      font-size:.92rem;
       white-space:nowrap;
     }
 
-    .search{
-      width:100%;
-      padding:14px 16px;
-      border-radius:14px;
-      border:1px solid rgba(220,180,74,.22);
-      background:#103922;
-      color:#fff;
-      margin-bottom:20px;
-      outline:none;
-    }
-
-    .search::placeholder{color:var(--muted)}
-
-    .grid{
+    .bracket-grid{
       display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+      grid-template-columns:repeat(2,minmax(0,1fr));
       gap:18px;
     }
 
-    .card{
-      background:linear-gradient(180deg, rgba(24,82,52,.98), rgba(11,43,28,.96));
+    .bracket-card{
+      background:linear-gradient(180deg, rgba(19,69,44,.96), rgba(11,45,28,.96));
       border:1px solid var(--line);
-      border-radius:18px;
-      padding:18px;
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      overflow:hidden;
     }
 
-    .name{
-      font-weight:800;
-      color:var(--gold);
-      margin-bottom:12px;
-      font-size:1.02rem;
-    }
-
-    .row{
-      background:rgba(255,255,255,.03);
-      border-radius:12px;
-      padding:10px 12px;
-      margin-bottom:10px;
-    }
-
-    .label{
-      font-size:.76rem;
-      color:var(--muted);
-      text-transform:uppercase;
-      letter-spacing:.08em;
-      margin-bottom:8px;
-      font-weight:700;
-    }
-
-    .picks{
+    .bracket-head{
+      padding:18px 20px 14px;
+      border-bottom:1px solid rgba(220,180,74,.12);
       display:flex;
-      flex-wrap:wrap;
-      gap:8px;
+      justify-content:space-between;
+      align-items:center;
+      gap:12px;
     }
 
-    .pick{
-      display:inline-flex;
-      padding:7px 10px;
+    .bracket-name{
+      margin:0;
+      color:var(--gold2);
+      font-size:1.05rem;
+      font-weight:800;
+    }
+
+    .bracket-badge{
+      padding:6px 10px;
       border-radius:999px;
-      font-size:.88rem;
-      font-weight:700;
+      font-size:.78rem;
+      font-weight:800;
+      letter-spacing:.06em;
+      text-transform:uppercase;
       color:#fff;
-      line-height:1;
     }
 
     .b1{background:#1e6c42}
@@ -135,19 +183,67 @@
     .b3{background:#8b6a2c}
     .b4{background:#6d4d22}
 
-    .tie{
-      margin-top:10px;
-      font-size:.86rem;
-      color:var(--soft);
+    .players{
+      list-style:none;
+      margin:0;
+      padding:0;
+    }
+
+    .players li{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:12px;
+      padding:12px 20px;
+      border-bottom:1px solid rgba(220,180,74,.08);
+      color:var(--text);
+      font-size:.95rem;
+    }
+
+    .players li:last-child{
+      border-bottom:none;
+    }
+
+    .player-num{
+      color:var(--muted);
+      font-weight:700;
+      min-width:26px;
+    }
+
+    .player-name{
+      flex:1;
+      color:var(--text);
+    }
+
+    .footer-note{
+      margin-top:24px;
+      color:var(--muted);
+      font-size:.9rem;
+      text-align:center;
     }
 
     .empty{
+      padding:24px 20px;
       color:var(--muted);
-      padding:18px 0;
     }
 
-    @media (max-width: 720px){
-      .hero{
+    @media (max-width: 920px){
+      .bracket-grid{
+        grid-template-columns:1fr;
+      }
+    }
+
+    @media (max-width: 760px){
+      .hero-inner{
+        flex-direction:column;
+        align-items:flex-start;
+      }
+
+      .hero-links{
+        justify-content:flex-start;
+      }
+
+      .page-head{
         flex-direction:column;
         align-items:flex-start;
       }
@@ -155,35 +251,145 @@
   </style>
 </head>
 <body>
-  <div class="wrap">
-    <div class="hero">
-      <div>
-        <h1>Masters 2026 Brackets</h1>
-        <div class="sub">Live participant bracket picks</div>
+  <header class="hero">
+    <div class="container hero-inner">
+      <div class="brand">
+        <div class="brand-mark">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <path d="M6 20V4l11 6-11 6"></path>
+            <path d="M6 4c5 1 9 5 10 10"></path>
+          </svg>
+        </div>
+        <div>
+          <h1>Masters 2026 Brackets</h1>
+          <p class="subtitle">Official bracket player lists · Augusta National</p>
+        </div>
       </div>
-      <a class="back" href="./index.html">← Back to Sweep</a>
-    </div>
 
-    <input id="search" class="search" placeholder="Search participant or golfer">
-
-    <div id="grid" class="grid">
-      <div class="empty">Loading brackets...</div>
+      <div class="hero-links">
+        <a class="hero-link" href="./index.html">← Back to Sweep</a>
+      </div>
     </div>
-  </div>
+  </header>
+
+  <main class="main">
+    <div class="container">
+      <div class="page-head">
+        <div>
+          <h2 class="page-title">Bracket Players</h2>
+          <p class="page-copy">Each bracket below shows the eligible golfers for participant picks.</p>
+        </div>
+        <div id="updated-time" class="updated">Updated --:--</div>
+      </div>
+
+      <div class="bracket-grid">
+        <section class="bracket-card">
+          <div class="bracket-head">
+            <h3 class="bracket-name">Bracket 1</h3>
+            <span class="bracket-badge b1">B1</span>
+          </div>
+          <ul id="bracket-1" class="players">
+            <li class="empty">Loading bracket 1...</li>
+          </ul>
+        </section>
+
+        <section class="bracket-card">
+          <div class="bracket-head">
+            <h3 class="bracket-name">Bracket 2</h3>
+            <span class="bracket-badge b2">B2</span>
+          </div>
+          <ul id="bracket-2" class="players">
+            <li class="empty">Loading bracket 2...</li>
+          </ul>
+        </section>
+
+        <section class="bracket-card">
+          <div class="bracket-head">
+            <h3 class="bracket-name">Bracket 3</h3>
+            <span class="bracket-badge b3">B3</span>
+          </div>
+          <ul id="bracket-3" class="players">
+            <li class="empty">Loading bracket 3...</li>
+          </ul>
+        </section>
+
+        <section class="bracket-card">
+          <div class="bracket-head">
+            <h3 class="bracket-name">Bracket 4</h3>
+            <span class="bracket-badge b4">B4</span>
+          </div>
+          <ul id="bracket-4" class="players">
+            <li class="empty">Loading bracket 4...</li>
+          </ul>
+        </section>
+      </div>
+
+      <div class="footer-note">
+        Masters 2026 Sweep · Bracket lists update from the linked sheet tabs
+      </div>
+    </div>
+  </main>
 
   <script>
-    const PARTICIPANTS_CSV = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTcK-7L1HPPhCjzjORjaxQ9DUEznolHMbCkG1e-cEXZ2v2xx_qw7DygtkfdNjO9GiSsyd5KaQaS8RU9/pub?gid=1462564797&single=true&output=csv';
+    const BRACKET_CONFIG = {
+      bracket1Csv: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTcK-7L1HPPhCjzjORjaxQ9DUEznolHMbCkG1e-cEXZ2v2xx_qw7DygtkfdNjO9GiSsyd5KaQaS8RU9/pubhtml?gid=1218886320&single=true',
+      bracket2Csv: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTcK-7L1HPPhCjzjORjaxQ9DUEznolHMbCkG1e-cEXZ2v2xx_qw7DygtkfdNjO9GiSsyd5KaQaS8RU9/pubhtml?gid=10527638&single=true',
+      bracket3Csv: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTcK-7L1HPPhCjzjORjaxQ9DUEznolHMbCkG1e-cEXZ2v2xx_qw7DygtkfdNjO9GiSsyd5KaQaS8RU9/pubhtml?gid=808074149&single=true',
+      bracket4Csv: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTcK-7L1HPPhCjzjORjaxQ9DUEznolHMbCkG1e-cEXZ2v2xx_qw7DygtkfdNjO9GiSsyd5KaQaS8RU9/pubhtml?gid=442258974&single=true'
+    };
 
-    let entries = [];
-    let term = '';
+    const DEMO_BRACKETS = {
+      1: [
+        'Scottie Scheffler',
+        'Rory McIlroy',
+        'Bryson DeChambeau',
+        'Jon Rahm',
+        'Xander Schauffele',
+        'Ludvig Aberg',
+        'Tommy Fleetwood',
+        'Matt Fitzpatrick'
+      ],
+      2: [
+        'Cameron Young',
+        'Collin Morikawa',
+        'Patrick Reed',
+        'Justin Rose',
+        'Brooks Koepka',
+        'Hideki Matsuyama',
+        'Jordan Spieth',
+        'Robert MacIntyre'
+      ],
+      3: [
+        'Viktor Hovland',
+        'Justin Thomas',
+        'Min Woo Lee',
+        'Shane Lowry',
+        'Russell Henley',
+        'Akshay Bhatia',
+        'Tyrrell Hatton',
+        'Joaquin Niemann'
+      ],
+      4: [
+        'Patrick Cantlay',
+        'Si Woo Kim',
+        'Sepp Straka',
+        'Sam Burns',
+        'Jason Day',
+        'Corey Conners',
+        'Sungjae Im',
+        'Adam Scott'
+      ]
+    };
 
     function splitCSVLine(line) {
       const result = [];
       let current = '';
       let inQuotes = false;
+
       for (let i = 0; i < line.length; i++) {
         const char = line[i];
         const next = line[i + 1];
+
         if (char === '"' && inQuotes && next === '"') {
           current += '"';
           i++;
@@ -196,6 +402,7 @@
           current += char;
         }
       }
+
       result.push(current);
       return result.map(v => v.trim());
     }
@@ -210,77 +417,60 @@
       return lines.slice(1).map(line => {
         const values = splitCSVLine(line);
         const row = {};
-        headers.forEach((h, i) => row[h] = values[i] ?? '');
+        headers.forEach((header, i) => row[header] = values[i] ?? '');
         return row;
       });
     }
 
-    function render() {
-      const grid = document.getElementById('grid');
+    function renderBracket(bracketNumber, players) {
+      const el = document.getElementById(`bracket-${bracketNumber}`);
 
-      const filtered = entries.filter(e => {
-        if (!term) return true;
-        return e.name.toLowerCase().includes(term) || e.picks.some(p => p.toLowerCase().includes(term));
-      });
-
-      if (!filtered.length) {
-        grid.innerHTML = '<div class="empty">No matching brackets found.</div>';
+      if (!players || !players.length) {
+        el.innerHTML = '<li class="empty">No players loaded for this bracket yet.</li>';
         return;
       }
 
-      const labels = ['Bracket 1','Bracket 2','Bracket 3','Bracket 4'];
-      const classes = ['b1','b2','b3','b4'];
-
-      grid.innerHTML = filtered.map(entry => `
-        <div class="card">
-          <div class="name">${entry.name}</div>
-          ${[0,1,2,3].map(bi => {
-            const p1 = entry.picks[bi * 2] || '';
-            const p2 = entry.picks[bi * 2 + 1] || '';
-            if (!p1 && !p2) return '';
-            return `
-              <div class="row">
-                <div class="label">${labels[bi]}</div>
-                <div class="picks">
-                  ${p1 ? `<span class="pick ${classes[bi]}">${p1}</span>` : ''}
-                  ${p2 ? `<span class="pick ${classes[bi]}">${p2}</span>` : ''}
-                </div>
-              </div>
-            `;
-          }).join('')}
-          ${entry.tieBreaker ? `<div class="tie">Tie-breaker: ${entry.tieBreaker}</div>` : ''}
-        </div>
+      el.innerHTML = players.map((name, idx) => `
+        <li>
+          <span class="player-num">${idx + 1}.</span>
+          <span class="player-name">${name}</span>
+        </li>
       `).join('');
     }
 
-    async function init() {
+    async function fetchBracket(url, fallbackList) {
+      if (!url) return fallbackList;
+
       try {
-        const csv = await fetch(PARTICIPANTS_CSV + '&t=' + Date.now()).then(r => r.text());
-        const rows = parseCSV(csv);
-        entries = rows.map(r => ({
-          name: r.Name || '',
-          picks: [
-            r.B1Pick1 || '',
-            r.B1Pick2 || '',
-            r.B2Pick1 || '',
-            r.B2Pick2 || '',
-            r.B3Pick1 || '',
-            r.B3Pick2 || '',
-            r.B4Pick1 || '',
-            r.B4Pick2 || ''
-          ],
-          tieBreaker: r.TieBreaker || ''
-        })).filter(r => r.name);
-        render();
+        const text = await fetch(url + '&t=' + Date.now()).then(r => r.text());
+        const rows = parseCSV(text);
+
+        const names = rows
+          .map(r => r.Player || r.player || r.Name || r.name || '')
+          .filter(Boolean);
+
+        return names.length ? names : fallbackList;
       } catch (e) {
-        document.getElementById('grid').innerHTML = '<div class="empty">Could not load brackets right now.</div>';
+        return fallbackList;
       }
     }
 
-    document.getElementById('search').addEventListener('input', e => {
-      term = (e.target.value || '').toLowerCase().trim();
-      render();
-    });
+    async function init() {
+      const [b1, b2, b3, b4] = await Promise.all([
+        fetchBracket(BRACKET_CONFIG.bracket1Csv, DEMO_BRACKETS[1]),
+        fetchBracket(BRACKET_CONFIG.bracket2Csv, DEMO_BRACKETS[2]),
+        fetchBracket(BRACKET_CONFIG.bracket3Csv, DEMO_BRACKETS[3]),
+        fetchBracket(BRACKET_CONFIG.bracket4Csv, DEMO_BRACKETS[4])
+      ]);
+
+      renderBracket(1, b1);
+      renderBracket(2, b2);
+      renderBracket(3, b3);
+      renderBracket(4, b4);
+
+      document.getElementById('updated-time').textContent =
+        `Updated ${new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`;
+    }
 
     init();
   </script>
